@@ -1,1 +1,1 @@
-# alumni
+# FMI WEB - Alumni project
