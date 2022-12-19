@@ -15,7 +15,7 @@ class User
     private $inAlumni;
     private $dateCreated;
 
-    public function __construct($id, $username, $email, $password, $firstName, $lastName, $fn, $speciality, $inAlumni, $dateCreated)
+    public function __construct($username, $email, $password, $firstName, $lastName, $fn, $speciality, $inAlumni, $id = null, $dateCreated = null)
     {
         $this->id = $id;
         $this->username = $username;
@@ -159,7 +159,6 @@ class User
         }
 
         return new User(
-            $userData["id"],
             $userData["username"],
             $userData["email"],
             $userData["password"],
@@ -168,11 +167,32 @@ class User
             $userData["fn"],
             $userData["speciality"],
             $userData["in_alumni"],
+            $userData["id"],
             $userData["date_created"]
         );
     }
 
     public static function getByEmail($connection, $email)
     {
+        $statement = $connection->prepare("SELECT * FROM user WHERE email = '?'");
+        $statement->execute([$email]);
+        $userData = $statement->fetchAll(PDO::FETCH_OBJ);
+
+        if (!$userData) {
+            return null;
+        }
+
+        return new User(
+            $userData["username"],
+            $userData["email"],
+            $userData["password"],
+            $userData["first_name"],
+            $userData["last_name"],
+            $userData["fn"],
+            $userData["speciality"],
+            $userData["in_alumni"],
+            $userData["id"],
+            $userData["date_created"]
+        );
     }
 }
