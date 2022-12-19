@@ -156,6 +156,7 @@ form.addEventListener("submit", (e) => {
       })
       .catch((err) => {
         alert(err.message+"\nTry again to register later");
+        [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
       });
     //remove all error messages
   } else {
