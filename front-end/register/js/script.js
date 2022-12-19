@@ -145,8 +145,8 @@ form.addEventListener("submit", (e) => {
         return data;
       })
       .then((data) => {
-        if (data["status"] === "error") {
-          throw new Error(data["message"]);
+        if (data["status"] !== 200 && data["status"] !== 201) {
+          throw new Error(`Error with status code: ${data.status} and message: ${data.statusText}`);
         } else {
           console.log("success");
           alert("You have successfully registered!");
@@ -155,7 +155,7 @@ form.addEventListener("submit", (e) => {
         }
       })
       .catch((err) => {
-        alert("Error: " + err + "");
+        alert(err.message);
       });
     //remove all error messages
   } else {
