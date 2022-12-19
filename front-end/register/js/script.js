@@ -45,28 +45,28 @@ const validate = (
 ) => {
   const response = [];
   if (!isValidEmail(email)) {
-    response.push({ id: "email", message: "Invalid email" });
+    response.push({ id: "email", message: "Имейла не покрива изискванията за регистрация" });
   }
   if (!isValidPassword(password)) {
-    response.push({ id: "password", message: "Invalid password" });
+    response.push({ id: "password", message: "Паролата трябва да е между 8 и 64 символа и да има поне една малка, голяма буква, цифра и специален символ" });
   }
   if (!isSamePassword(password, confirmPassword)) {
     response.push({
       id: "confirm_password",
-      message: "Passwords are not the same",
+      message: "Паролите не съвпадат",
     });
   }
   if (!isValidFn(fn)) {
-    response.push({ id: "fn", message: "Invalid fn" });
+    response.push({ id: "fn", message: "Невалиден факултетен номер" });
   }
   if (!isValidSpeciality(speciality)) {
-    response.push({ id: "speciality", message: "Invalid speciality" });
+    response.push({ id: "speciality", message: "Невалидна специалност" });
   }
   if (!isValidName(firstName)) {
-    response.push({ id: "first_name", message: "Invalid firstName name" });
+    response.push({ id: "first_name", message: "Невалидно име" });
   }
   if (!isValidName(lastName)) {
-    response.push({ id: "last_name", message: "Invalid lastName name" });
+    response.push({ id: "last_name", message: "Невалидна фамилия" });
   }
   if (response.length > 0) {
     response.push({ success: false });
@@ -117,12 +117,13 @@ form.addEventListener("submit", (e) => {
     fn.value,
     speciality.value
   );
+
   console.log(response);
+
   const success = response.find(
     (element) => element.success !== undefined
   )?.success;
   if (success) {
-    //form.submit();
     const data = {
       email: email.value,
       password: password.value,
@@ -130,6 +131,7 @@ form.addEventListener("submit", (e) => {
       lastName: lastName.value,
       fn: fn.value,
       speciality: speciality.value,
+      "in_alumni": false
     };
 
     fetch("../../../back-end/api/register/register.php", {
@@ -146,16 +148,16 @@ form.addEventListener("submit", (e) => {
         if (data["status"] === "error") {
           throw new Error(data["message"]);
         } else {
+          console.log("success");
           alert("You have successfully registered!");
+          [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
           window.location.href = "../../login/login.html";
         }
       })
       .catch((err) => {
         alert("Error: " + err + "");
       });
-    console.log("success");
     //remove all error messages
-    [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
   } else {
     addErrorMessages(response);
   }
