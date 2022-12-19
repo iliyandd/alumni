@@ -155,7 +155,7 @@ form.addEventListener("submit", (e) => {
         }
       })
       .catch((err) => {
-        alert(err.message);
+        alert(err.message+"\nTry again to register later");
       });
     //remove all error messages
   } else {
