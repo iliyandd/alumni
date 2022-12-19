@@ -123,6 +123,36 @@ form.addEventListener("submit", (e) => {
   )?.success;
   if (success) {
     //form.submit();
+    const data = {
+      email: email.value,
+      password: password.value,
+      firstName: firstName.value,
+      lastName: lastName.value,
+      fn: fn.value,
+      speciality: speciality.value,
+    };
+
+    fetch("../../../back-end/api/register/register.php", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((data) => {
+        return data;
+      })
+      .then((data) => {
+        if (data["status"] === "error") {
+          throw new Error(data["message"]);
+        } else {
+          alert("You have successfully registered!");
+          window.location.href = "../../login/login.html";
+        }
+      })
+      .catch((err) => {
+        alert("Error: " + err + "");
+      });
     console.log("success");
     //remove all error messages
     [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
@@ -130,4 +160,3 @@ form.addEventListener("submit", (e) => {
     addErrorMessages(response);
   }
 });
-
