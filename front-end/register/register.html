@@ -7,28 +7,47 @@
     <script async defer src="./js/script.js"></script>
     <title>Алумни клуб - регистрация</title>
 </head>
+
 <body>
     <h1>Регистрационна форма за Алумни клуб на ФМИ</h1>
     <form method="post" id="register_form">
-        <input type="text" name="username" id="username" placeholder="Потребителско име"/>
-        <input type="text" name="first_name" id="first_name" placeholder="Име" />
-        <input type="text" name="last_name" id="last_name" placeholder="Фамилия" />
-        <input type="text" name="fn" id="fn" placeholder="Факултетен номер" />
-        <input type="email" name="email" id="email" placeholder="Имейл"/>
-        <input type="password" name="password" id="password" placeholder="Парола"/>
-        <input type="password" name="confirm_password" id="confirm_password" placeholder="Повтори парола"/>
-        <select name="speciality" id="speciality">
-            <option value="sp_1">Информатика</option>
-            <option value="sp_2">Информационни системи</option>
-            <option value="sp_3">Компютърни науки</option>
-            <option value="sp_4">Софтуерно инженерство</option>
-            <option value="sp_5">Анализ на данни</option>
-            <option value="sp_6">Математика</option>
-            <option value="sp_7">Приложна математика</option>
-            <option value="sp_8">Статистика</option>
-            <option value="sp_9">Математика и информатика</option>
-        </select>
-        <button id="submit_button" type="submit">Регистрация!</button>
+        <div class="form_control">
+            <input type="text" name="username" id="username" placeholder="Потребителско име" />
+        </div>
+        <div class="form_control">
+            <input type="text" name="first_name" id="first_name" placeholder="Име" />
+        </div>
+        <div class="form_control">
+            <input type="text" name="last_name" id="last_name" placeholder="Фамилия" />
+        </div>
+        <div class="form_control">
+            <input type="text" name="fn" id="fn" placeholder="Факултетен номер" />
+        </div>
+        <div class="form_control">
+            <input type="email" name="email" id="email" placeholder="Имейл" />
+        </div>
+        <div class="form_control">
+            <input type="password" name="password" id="password" placeholder="Парола" />
+        </div>
+        <div class="form_control">
+            <input type="password" name="confirm_password" id="confirm_password" placeholder="Повтори парола" />
+        </div>
+        <div class="form_control">
+            <select name="speciality" id="speciality">
+                <option value="Информатика">Информатика</option>
+                <option value="Информационни системи">Информационни системи</option>
+                <option value="Компютърни науки">Компютърни науки</option>
+                <option value="Софтуерно инженерство">Софтуерно инженерство</option>
+                <option value="Анализ на данни">Анализ на данни</option>
+                <option value="Математика">Математика</option>
+                <option value="Приложна математика">Приложна математика</option>
+                <option value="Статистика">Статистика</option>
+                <option value="Математика и информатика">Математика и информатика</option>
+            </select>
+        </div>
+        <div class="form_control">
+            <button id="register_button" type="submit">Регистрация!</button>
+        </div>
     </form>
 </body>
 </html>

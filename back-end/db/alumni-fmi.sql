@@ -2,10 +2,10 @@
 -- version 5.2.0
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Dec 18, 2022 at 01:08 PM
--- Server version: 10.4.25-MariaDB
--- PHP Version: 8.1.10
+-- Хост: 127.0.0.1
+-- Време на генериране: 20 дек 2022 в 16:09
+-- Версия на сървъра: 10.4.25-MariaDB
+-- Версия на PHP: 8.1.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -18,15 +18,18 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `alumni-fmi`
+-- База данни: `alumni-fmi`
 --
+CREATE DATABASE IF NOT EXISTS `alumni-fmi` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `alumni-fmi`;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `event`
+-- Структура на таблица `event`
 --
 
+DROP TABLE IF EXISTS `event`;
 CREATE TABLE `event` (
   `id` int(16) NOT NULL,
   `title` varchar(64) NOT NULL,
@@ -39,9 +42,10 @@ CREATE TABLE `event` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `user`
+-- Структура на таблица `user`
 --
 
+DROP TABLE IF EXISTS `user`;
 CREATE TABLE `user` (
   `id` int(32) NOT NULL,
   `username` varchar(64) NOT NULL,
@@ -60,13 +64,13 @@ CREATE TABLE `user` (
 --
 
 --
--- Indexes for table `event`
+-- Индекси за таблица `event`
 --
 ALTER TABLE `event`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `user`
+-- Индекси за таблица `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
