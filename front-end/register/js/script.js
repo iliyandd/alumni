@@ -78,7 +78,7 @@ const validate = (
 
 const addErrorMessages = (response) => {
   response.forEach((element) => {
-    debugger;
+
     const input = document.querySelector(`#${element.id}`);
     if (input != null) {
       //clear the old messages if it has
@@ -99,7 +99,7 @@ const addErrorMessages = (response) => {
 const form = document.querySelector("#register_form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  debugger;
+  
   const email = document.querySelector("#email");
   const password = document.querySelector("#password");
   const confirmPassword = document.querySelector("#confirm_password");

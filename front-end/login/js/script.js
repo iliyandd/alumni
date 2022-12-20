@@ -25,7 +25,7 @@ const validate = (email, password) => {
 
 const addErrorMessages = (response) => {
   response.forEach((element) => {
-    debugger;
+    
     const input = document.querySelector(`#${element.id}`);
     if (input != null) {
       //clear the old messages if it has
@@ -46,7 +46,7 @@ const addErrorMessages = (response) => {
 const form = document.querySelector("#login_form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  debugger;
+  
   const email = document.querySelector("#email");
   const password = document.querySelector("#password");
   const response = validate(email.value, password.value);
