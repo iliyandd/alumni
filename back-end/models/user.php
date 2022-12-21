@@ -29,13 +29,22 @@ class User
         $this->dateCreated = $dateCreated;
     }
 
-    public function toJson()
+    public function toJson($detailInformation = false, $sensitiveInformation = false)
     {
-        return [
-            "id" => $this->id, "username" => $this->username, "email" => $this->email, "password" => $this->password,
+        $result = [
+            "username" => $this->username, "email" => $this->email,
             "firstName" => $this->firstName, "lastName" => $this->lastName, "fn" => $this->fn, "speciality" => $this->speciality,
-            "inAlumni" => $this->inAlumni, "dateCreated" => $this->dateCreated
+            "inAlumni" => $this->inAlumni
         ];
+        if ($detailInformation) {
+            $result["id"] = $this->id;
+            $result["dateCreated"] = $this->dateCreated;
+        }
+        if ($sensitiveInformation) {
+            $result["password"] = $this->password;
+        }
+
+        return $result;
     }
 
     // Getters
@@ -145,7 +154,7 @@ class User
     public function save($connection)
     {
         $statement = $connection->prepare($this->SAVE_QUERY);
-        $statement->execute($this->toJson());
+        return (bool) $statement->execute($this->toJson());
     }
 
     public static function getById($connection, $id)

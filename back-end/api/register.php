@@ -34,10 +34,12 @@ try {
 
     // create user
     if ($registerHandler->action()) {
-        $data["id"] = $connection->lastInsertId();
-        $_SESSION["user"] = $data;
+        session_start();
+        $sessionData = $user->toJson();
+        $sessionData["id"] = $connection->lastInsertId();
+        $_SESSION["user"] = $sessionData;
+
         setcookie("user", $user->getUsername(), time() + 60 * 60 * 2, "/");
-        setcookie("password", $user->getPassword(), time() + 60 * 60 * 2, "/");
 
         http_response_code(201);
         exit(json_encode(["status" => "success", "message" => "Успешна регистрация!"], JSON_UNESCAPED_UNICODE));
