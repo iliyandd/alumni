@@ -35,6 +35,7 @@ const isValidName = (name) => {
 };
 
 const validate = (
+  username,
   email,
   password,
   confirmPassword,
@@ -44,11 +45,25 @@ const validate = (
   speciality
 ) => {
   const response = [];
+
+  if (!isValidName(username)) {
+    response.push({
+      id: "username",
+      message: "Потребителското име не покрива изискванията за регистрация",
+    });
+  }
   if (!isValidEmail(email)) {
-    response.push({ id: "email", message: "Имейла не покрива изискванията за регистрация" });
+    response.push({
+      id: "email",
+      message: "Имейла не покрива изискванията за регистрация",
+    });
   }
   if (!isValidPassword(password)) {
-    response.push({ id: "password", message: "Паролата трябва да е между 8 и 64 символа и да има поне една малка, голяма буква, цифра и специален символ" });
+    response.push({
+      id: "password",
+      message:
+        "Паролата трябва да е между 8 и 64 символа и да има поне една малка, голяма буква, цифра и специален символ",
+    });
   }
   if (!isSamePassword(password, confirmPassword)) {
     response.push({
@@ -78,7 +93,6 @@ const validate = (
 
 const addErrorMessages = (response) => {
   response.forEach((element) => {
-
     const input = document.querySelector(`#${element.id}`);
     if (input != null) {
       //clear the old messages if it has
@@ -99,7 +113,7 @@ const addErrorMessages = (response) => {
 const form = document.querySelector("#register_form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  
+  const username = document.querySelector("#username");
   const email = document.querySelector("#email");
   const password = document.querySelector("#password");
   const confirmPassword = document.querySelector("#confirm_password");
@@ -109,6 +123,7 @@ form.addEventListener("submit", (e) => {
   const speciality = document.querySelector("#speciality");
 
   const response = validate(
+    username.value,
     email.value,
     password.value,
     confirmPassword.value,
@@ -131,7 +146,7 @@ form.addEventListener("submit", (e) => {
       lastName: lastName.value,
       fn: fn.value,
       speciality: speciality.value,
-      "in_alumni": false
+      in_alumni: false,
     };
 
     fetch("../../../back-end/api/register/register.php", {
@@ -146,7 +161,9 @@ form.addEventListener("submit", (e) => {
       })
       .then((data) => {
         if (data["status"] !== 200 && data["status"] !== 201) {
-          throw new Error(`Error with status code: ${data.status} and message: ${data.statusText}`);
+          throw new Error(
+            `Error with status code: ${data.status} and message: ${data.statusText}`
+          );
         } else {
           console.log("success");
           alert("You have successfully registered!");
@@ -155,7 +172,7 @@ form.addEventListener("submit", (e) => {
         }
       })
       .catch((err) => {
-        alert(err.message+"\nTry again to register later");
+        alert(err.message + "\nTry again to register later");
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
       });
     //remove all error messages
