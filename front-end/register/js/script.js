@@ -1,11 +1,3 @@
-// const email = "nikizhelqzkov@gmail.com";
-// const password = "dsafcsal2W@";
-// const confirmPassword = "dsafcsal2W@";
-// const firstName = "Nikolay";
-// const lastName = "Zhelqzkov";
-// const fn = "1284213";
-// const speciality = "Software Engineering";
-
 const isEmpty = (value) =>
   value === "" || value === undefined || value === null;
 const isValidEmail = (email) => {
@@ -160,7 +152,7 @@ form.addEventListener("submit", (e) => {
         return data;
       })
       .then((data) => {
-        if (data["status"] !== 200 && data["status"] !== 201) {
+        if (data["status"] < 200 || data["status"] >= 300) {
           throw new Error(
             `Error with status code: ${data.status} and message: ${data.statusText}`
           );

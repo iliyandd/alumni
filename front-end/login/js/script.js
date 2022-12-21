@@ -69,7 +69,7 @@ form.addEventListener("submit", (e) => {
         return response;
       })
       .then((data) => {
-        if (data["status"] !== 200 && data["status"] !== 201) {
+        if (data["status"] < 200 || data["status"] >= 300) {
           throw new Error(
             `Error with status code: ${data.status} and message: ${data.statusText}`
           );
