@@ -24,7 +24,7 @@ $registerHandler = new RegisterApiHandler($connection, $user);
 
 try {
     // check whether user exists
-    if (!$registerHandler->check()) {
+    if ($registerHandler->userExists()) {
         http_response_code(400);
         exit(json_encode(
             ["status" => "error", "message" => "Потребител с това потребителско име, имейл или факултетен номер вече съществува!"],
