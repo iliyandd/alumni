@@ -141,7 +141,7 @@ form.addEventListener("submit", (e) => {
       in_alumni: false,
     };
 
-    fetch("../../../back-end/api/register/register.php", {
+    fetch("../../../back-end/api/register.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
