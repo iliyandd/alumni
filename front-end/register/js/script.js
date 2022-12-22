@@ -148,20 +148,29 @@ form.addEventListener("submit", (e) => {
       },
       body: JSON.stringify(data),
     })
-      .then((data) => {
-        return data;
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
+        } else {
+          throw new Error(
+            `Error with status code: ${response.status} and message: ${response.statusText}`
+          );
+        }
       })
       .then((data) => {
-        if (data["status"] < 200 || data["status"] >= 300) {
-          throw new Error(
-            `Error with status code: ${data.status} and message: ${data.statusText}`
-          );
-        } else {
-          console.log("success");
-          alert("You have successfully registered!");
-          [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-          window.location.href = "../../login/login.html";
+        if (data.error) {
+          throw new Error(data.error);
         }
+
+        console.log("success");
+        alert("You have successfully registered!");
+        [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
+        // window.location.href = "../../login/login.html";
+        if (sessionStorage.hasOwnProperty("user")) {
+          user = JSON.parse(sessionStorage.getItem("user"));
+        }
+        // Redirect to the home page
+        // window.location.href = "../../../front-end/profile/profile.html?user=" + user.id;
       })
       .catch((err) => {
         alert(err.message + "\nTry again to register later");
