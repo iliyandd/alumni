@@ -25,7 +25,6 @@ const validate = (email, password) => {
 
 const addErrorMessages = (response) => {
   response.forEach((element) => {
-    
     const input = document.querySelector(`#${element.id}`);
     if (input != null) {
       //clear the old messages if it has
@@ -46,7 +45,7 @@ const addErrorMessages = (response) => {
 const form = document.querySelector("#login_form");
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  
+
   const email = document.querySelector("#email");
   const password = document.querySelector("#password");
   const response = validate(email.value, password.value);
@@ -66,23 +65,31 @@ form.addEventListener("submit", (e) => {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        return response;
+        if (!response.ok) {
+          // Check the status code and throw an error if it's not in the 2xx range
+          throw new Error(
+            `Error with status code: ${response.status} and message: ${response.statusText}`
+          );
+        }
+        return response.json();
       })
       .then((data) => {
-        if (data["status"] < 200 || data["status"] >= 300) {
-          throw new Error(
-            `Error with status code: ${data.status} and message: ${data.statusText}`
-          );
-        } else {
-          console.log("success");
-          alert("You have successfully login!");
-          [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-          sessionStorage.setItem("email", email.value);
-          window.location.href = "../../login/login.html";
+        // Check the data object for any error messages or flags
+        if (data.error) {
+          throw new Error(data.error);
         }
-    })
-    .catch((err) => {
-        alert(err.message + "\nTry again to register later");
+        console.log("success");
+        alert("You have successfully login!");
+        [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
+        let user;
+        if (sessionStorage.hasOwnProperty("user")) {
+          user = JSON.parse(sessionStorage.getItem("user"));
+        }
+        // Redirect to the home page
+        // window.location.href = "../../../front-end/profile/profile.html?user=" + user.id;
+      })
+      .catch((err) => {
+        alert(err.message + "\nTry again to login later");
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
       });
   } else {
