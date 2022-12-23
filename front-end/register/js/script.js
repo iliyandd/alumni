@@ -139,7 +139,7 @@ form.addEventListener("submit", (e) => {
       lastName: lastName.value,
       fn: fn.value,
       speciality: speciality.value,
-      in_alumni: false,
+      inAlumni: false,
     };
 
     fetch("../../../../alumni/back-end/api/register.php", {
