@@ -1,31 +1,4 @@
-const isEmpty = (value) =>
-  value === "" || value === undefined || value === null;
-const isValidEmail = (email) => {
-  // regex for email validation, which check whether the email starts with letter, has @, after it has letters and . ends with letters
-  const regex =
-    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)+$/;
-  return !isEmpty(email) && regex.test(email) && email.length <= 64;
-};
-const isValidPassword = (password) => {
-  // regex for  password validation with digits, upper and lower case letters and special characters and length between 8 and 64
-  const regex =
-    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#])[A-Za-z\d@$!%*?&#]{8,64}$/;
-  return !isEmpty(password) && regex.test(password);
-};
-const isSamePassword = (password, confirmPassword) =>
-  password === confirmPassword;
-const isValidFn = (fn) => {
-  return !isEmpty(fn) && fn.length >= 4 && fn.length <= 32;
-};
-const isValidSpeciality = (speciality) => {
-  return (
-    !isEmpty(speciality) && speciality.length >= 2 && speciality.length <= 64
-  );
-};
-const isValidName = (name) => {
-  return !isEmpty(name) && name.length >= 2 && name.length <= 64;
-};
-
+import { isValidName, isValidEmail, isValidPassword, addErrorMessages } from "../../GlobalScripts/validations.js";
 const validate = (
   username,
   email,
@@ -37,8 +10,8 @@ const validate = (
   speciality
 ) => {
   const response = [];
-
   if (!isValidName(username)) {
+    
     response.push({
       id: "username",
       message: "Потребителското име не покрива изискванията за регистрация",
@@ -83,24 +56,7 @@ const validate = (
   return response;
 };
 
-const addErrorMessages = (response) => {
-  response.forEach((element) => {
-    const input = document.querySelector(`#${element.id}`);
-    if (input != null) {
-      //clear the old messages if it has
-      const oldError = input.parentNode.querySelector(".error");
-      if (oldError !== null) {
-        oldError.remove();
-      }
-      //create new error message
-      const errorElement = document.createElement("span");
-      errorElement.classList.add("error");
-      errorElement.innerText = element.message;
-      //add element after the current input
-      input.parentNode.insertBefore(errorElement, input.nextSibling);
-    }
-  });
-};
+
 
 const form = document.querySelector("#register_form");
 form.addEventListener("submit", (e) => {
@@ -149,22 +105,33 @@ form.addEventListener("submit", (e) => {
       },
       body: JSON.stringify(data),
     })
-      .then((data) => {
-        return data;
-      })
-      .then((data) => {
-        if (data["status"] < 200 || data["status"] >= 300) {
-          throw new Error(
-            `Error with status code: ${data.status} and message: ${data.statusText}`
-          );
+      .then((response) => {
+        if (response.ok) {
+          return response.json();
         } else {
-          console.log("success");
-          alert("You have successfully registered!");
-          [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-          window.location.href = "../../login/login.html";
+          throw new Error(
+            `Error with status code: ${response.status} and message: ${response.statusText}`
+          );
         }
       })
+      .then((data) => {
+        if (data.error) {
+          throw new Error(data.error);
+        }
+
+        console.log("success");
+        console.log(data);
+        alert("You have successfully registered!");
+        [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
+        // window.location.href = "../../login/login.html";
+        if (sessionStorage.hasOwnProperty("user")) {
+          user = JSON.parse(sessionStorage.getItem("user"));
+        }
+        // Redirect to the home page
+        // window.location.href = "../../../front-end/profile/profile.html?user=" + user.id;
+      })
       .catch((err) => {
+        console.log(err);
         alert(err.message + "\nTry again to register later");
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
       });
