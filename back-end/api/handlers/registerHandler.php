@@ -22,6 +22,6 @@ class RegisterApiHandler
 
     public function action()
     {
-        return $this->user->save();
+        return $this->user->save($this->connection);
     }
 }

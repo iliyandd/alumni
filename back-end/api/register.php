@@ -6,7 +6,7 @@ require_once("handlers/registerHandler.php");
 
 // init
 $parameters = file_get_contents("php://input");
-$data = json_decode($params, true);
+$data = json_decode($parameters, true);
 
 $db = new Database();
 $connection = $db->getConnection();
