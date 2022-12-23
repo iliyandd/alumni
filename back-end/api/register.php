@@ -14,8 +14,8 @@ $user = new User(
     $data["username"],
     $data["email"],
     password_hash($data["password"], PASSWORD_DEFAULT),
-    $data["first_name"],
-    $data["last_name"],
+    $data["firstName"],
+    $data["lastName"],
     $data["fn"],
     $data["speciality"],
     $data["inAlumni"]

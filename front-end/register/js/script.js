@@ -132,13 +132,14 @@ form.addEventListener("submit", (e) => {
   )?.success;
   if (success) {
     const data = {
+      username: username.value,
       email: email.value,
       password: password.value,
       firstName: firstName.value,
       lastName: lastName.value,
       fn: fn.value,
       speciality: speciality.value,
-      in_alumni: false,
+      inAlumni: false,
     };
 
     fetch("../../../../alumni/back-end/api/register.php", {
