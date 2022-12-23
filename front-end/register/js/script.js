@@ -132,6 +132,7 @@ form.addEventListener("submit", (e) => {
   )?.success;
   if (success) {
     const data = {
+      username: username.value,
       email: email.value,
       password: password.value,
       firstName: firstName.value,
