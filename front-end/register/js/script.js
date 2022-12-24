@@ -1,4 +1,4 @@
-import { isValidName, isValidEmail, isValidPassword, addErrorMessages } from "../../GlobalScripts/validations.js";
+import { isValidName, isValidEmail, isValidPassword, addErrorMessages, isSamePassword, isValidFn, isValidSpeciality  } from "../../GlobalScripts/validations.js";
 const validate = (
   username,
   email,
@@ -124,9 +124,6 @@ form.addEventListener("submit", (e) => {
         alert("You have successfully registered!");
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
         // window.location.href = "../../login/login.html";
-        if (sessionStorage.hasOwnProperty("user")) {
-          user = JSON.parse(sessionStorage.getItem("user"));
-        }
         // Redirect to the home page
         // window.location.href = "../../../front-end/profile/profile.html?user=" + user.id;
       })
