@@ -154,7 +154,13 @@ class User
     public function save($connection)
     {
         $statement = $connection->prepare($this->SAVE_QUERY);
-        return (bool) $statement->execute($this->toJson());
+        try{
+            $statement->execute($this->toJson(false,true));
+            return true;
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+            return false;
+        }
     }
 
     public static function getById($connection, $id)
