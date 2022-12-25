@@ -1,14 +1,3 @@
-const getProfileById = async (id) => {
-  try {
-    const response = await fetch(`../../back-end/api/profile.php?id=${id}`);
-    const profile = await response.json();
-    return profile;
-  } catch (err) {
-    console.log(err);
-    return null;
-  }
-};
-
 const getSession = async () => {
   try {
     const response = await fetch(`../../back-end/api/handlers/getSession.php`, {
@@ -25,18 +14,21 @@ const getSession = async () => {
   }
 };
 
+
+
 window.addEventListener("load", async () => {
   let sessionId = null;
   const sessionObj = await getSession();
   sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
-  if (sessionId === null) {
+  if (!sessionId) {
     alert("You are not logged in");
     window.location.href = "../login/login.html";
     return;
   }
 
-  const profile = await getProfileById(sessionId);
 
-  console.log(profile);
+  console.log(sessionObj);
+ 
+
 });
