@@ -1,30 +1,37 @@
 <!DOCTYPE html>
 <html lang="bg">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Алумни клуб - вписване</title>
+    <link rel="stylesheet" href="../GlobalStyle/loginAndRegister.css" />
     <script src="./js/script.js" async defer type="module"></script>
 </head>
 
 <body>
-    <h1>Вписване в Алумни клуб на ФМИ</h1>
-    <form method="post" id="login_form">
-        <div class="form_control">
-            <input type="email" name="email" id="email" placeholder="Имейл" />
-        </div>
-        <div class="form_control">
-            <input type="password" name="password" id="password" placeholder="Парола" />
-        </div>
-        <div class="form_control">
-            <button id="login_button" type="submit">Вписване!</button>
-        </div>
-        <div class="form_control">
-            <span>Все още нямаш профил?</span>
-            <a href="../register/register.html">Регистрирай се!</a>
-        </div>
-    </form>
+    <div class="transbox">
+        <h1>Вписване в Алумни клуб на ФМИ</h1>
+        <form method="post" id="login_form">
+            <div class="form_control">
+                    <label for="email">Имейл</label>
+                <input type="email" name="email" id="email" placeholder="Имейл" />
+            </div>
+            <div class="form_control">
+                <label for="password">Парола</label>
+                <input type="password" name="password" id="password" placeholder="Парола" />
+            </div>
+            <div class="form_control">
+                <button id="login_button" type="submit">Вписване!</button>
+            </div>
+            <!--променям името на класа-->
+            <div class="reference_register">
+                <span>Все още нямаш профил?</span>
+                <a href="../register/register.html">Регистрирай се!</a>
+            </div>
+        </form>
+    </div>
 </body>
 
 </html>

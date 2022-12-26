@@ -1,0 +1,147 @@
+html {
+    margin: 0;
+    height: 100%;
+    background-image: url("../../img/fmi_web_project.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background-size: cover;
+}
+
+#login_form,
+#register_form {
+    margin-left: 50%;
+    margin-top: 10%;
+}
+
+h1 {
+    text-align: center;
+    margin-left: 50%;
+    margin-top: 10%;
+    margin-bottom: -5%;
+}
+
+.form_control input,
+.form_control select,
+.form_control option {
+    width: 60%;
+    padding: 2px, 10px;
+    height: 40px;
+    display: block;
+    border: 1px solid #ccc;
+    margin-bottom: 12px;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
+.form_control label{
+    font-size: 15px;
+    margin-bottom: 5px;
+    padding-left: 5px;
+    display: block;
+    color:#666;
+}
+
+.form_control {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.form_control button {
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 5px;
+    width: 60%;
+    color: white;
+    padding: 5px 10px;
+    text-align: center;
+    display: inline-block;
+    font-size: 20px;
+    margin: 10px 2px;
+    cursor: pointer;
+}
+
+.form_control button:hover {
+    background-color: #3c8940;
+}
+
+.form_control select,
+.form_control option {
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.form_control select:hover,
+.form_control option:hover,
+.form_control input:focus {
+    background-color: #f2f2f2;
+}
+
+.reference_register {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    margin-top: 3%;
+    margin-left: 25%;
+}
+
+.reference_register a {
+    color: black;
+}
+/*
+
+.transbox {
+    position: relative;
+}
+
+.transbox::after {
+    content: "";
+    position: fixed;
+    width: 50%;
+    margin-left: 50%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.5);
+
+}
+
+
+.transbox {
+	background-color: rgba(255, 255, 255, 0.5);
+	border-radius: 5px;
+	box-shadow: 0 0 10px #000;
+	position:absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	width: 40%;
+	height: 40%;
+}
+.transbox:before {
+	background-image: url("../../img/fmi_web_project.jpg");
+	width: 100%;
+	background-size: cover;
+	content: "";
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	z-index: -1;
+	display: block;
+}
+*/
