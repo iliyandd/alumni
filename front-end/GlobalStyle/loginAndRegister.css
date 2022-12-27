@@ -36,7 +36,7 @@ body {
     height: 40px;
     display: block;
     border: 1px solid #ccc;
-    margin-bottom: 12px;
+    /* margin-bottom: 12px; */
     border-radius: 5px;
     font-size: 15px;
 }
@@ -50,7 +50,7 @@ body {
 }
 
 .form_control {
-    padding: 5px 20px;
+    padding: 10px 20px;
 }
 
 .form_control button {
@@ -64,6 +64,7 @@ body {
     font-size: 20px;
     margin: 10px 2px;
     cursor: pointer;
+    transition: all 0.3s ease-in-out;
 }
 
 .form_control button:hover {
@@ -91,16 +92,19 @@ body {
 }
 
 .reference_to_register a {
-    color: #4CAF50;
+    color: #00FF0A;
+    text-decoration: none;
+    transition: all 0.3s ease-in-out;
 }
 
 .reference_to_register a:hover {
     text-decoration: underline;
-    color:#3c8940;
+    color:#8bff2c;
 }
 
 .transbox {
     position: relative;
+    padding-bottom: 15px;
 }
 
 .transbox::before {
@@ -114,4 +118,9 @@ body {
     bottom: 0;
     z-index: -1;
     background-color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 15px;
+}
+
+.form_btn{
+    padding-bottom: 15px;
 }
