@@ -5,7 +5,7 @@ import {
   addErrorMessages,
   isSamePassword,
   isValidFn,
-  isValidSpeciality
+  isValidSpeciality,
 } from "../../GlobalScripts/validations.js";
 const getSession = async () => {
   try {
@@ -123,6 +123,8 @@ window.addEventListener("load", async () => {
     window.location.href = "../login/login.html";
     return;
   }
+  //add id to the cookie
+  document.cookie = `sessionId=${sessionId}`;
 
   console.log(sessionObj);
   loadDataIntoPage(sessionObj);
@@ -161,6 +163,12 @@ form.addEventListener("submit", async (e) => {
     (element) => element.success !== undefined
   )?.success;
   if (success) {
+    //get the cookie with id session id and add it to the data
+    const id = document.cookie
+      .split("; ")
+      .find((row) => row.startsWith("sessionId"))
+      .split("=")[1];
+
     const data = {
       username: username.value,
       email: email.value,
@@ -170,8 +178,37 @@ form.addEventListener("submit", async (e) => {
       fn: fn.value,
       speciality: speciality.value,
       inAlumni,
+      id
     };
     console.log(data);
+
+    try {
+      const response = await fetch(
+        "../../../../alumni/back-end/api/updateProfile.php",
+        {
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        const updatedProfile = await response.json();
+        if (updatedProfile.error) {
+          throw new Error(data.error);
+        }
+        [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
+        console.log(updatedProfile);
+        alert("Профилът е обновен успешно");
+        //reload
+        window.location.reload();
+      }
+    } catch (err) {
+      console.log(err);
+      [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
+      alert(err.message + "\nTry again to update user later");
+    }
   } else {
     addErrorMessages(response);
   }

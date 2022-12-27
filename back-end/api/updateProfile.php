@@ -58,6 +58,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         }
 
         if ($updateApiHandler->updateUser()) {
+            session_start();
+            //remove session with key user
+            unset($_SESSION['user']);
+            $sessionData = $user->toJson();
+            $sessionData['id'] = $user->getId();
+            $_SESSION['user'] = $sessionData;
             http_response_code(200);
             exit(
                 json_encode(
