@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async defer src="./js/profile.js" type="module"></script>
+    <link rel="stylesheet" href="./css/profile.css">
+    <link rel="stylesheet" href="../GlobalStyle/errors.css" />
+    <title>Profile</title>
+</head>
+
+<body>
+    <header></header>
+    <main>
+        <div class="container">
+            <div class="profile_header">
+                <div class="my_profile_section">
+                    <h3>Моят Профил</h3>
+                </div>
+                <div class="my_profile_name">
+                    <h3 id="header_profile_name">Име</h3>
+                </div>
+            </div>
+            <div class="edit_profile_text">
+                <h3>Редактирай Профил</h3>
+            </div>
+            <form class="edit_profile_form">
+                <div class="form_group form_names">
+                    <div class="form_names_first_name">
+                        <label for="first_name">Име</label>
+                        <input type="text" id="first_name" name="first_name" placeholder="Име" value="">
+                    </div>
+                    <div class="form_names_last_name">
+                        <label for="last_name">Фамилия</label>
+                        <input type="text" id="last_name" name="last_name" placeholder="Фамилия" value="">
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div class="form_username">
+                        <label for="username">Потребителско име</label>
+                        <input type="text" id="username" name="username" placeholder="Потребителско име" value="">
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div class="form_email">
+                        <label for="email">Електронна поща</label>
+                        <input type="email" id="email" name="email" placeholder="Електронна поща" value="">
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div class="form_password">
+                        <label for="password">Парола</label>
+                        <input type="password" id="password" name="password" placeholder="Парола" value="">
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div class="form_password">
+                        <label for="comfirm_password">Повтори паролата</label>
+                        <input type="password" id="comfirm_password" name="comfirm_password"
+                            placeholder="Повтори паролата" value="">
+                    </div>
+                </div>
+                <div class="form_group additional_info">
+                    <div class="speciality">
+                        <label for="speciality">Специалност</label>
+                        <select name="speciality" id="speciality">
+                            <option value="Информатика">Информатика</option>
+                            <option value="Информационни системи">Информационни системи</option>
+                            <option value="Компютърни науки">Компютърни науки</option>
+                            <option value="Софтуерно инженерство">Софтуерно инженерство</option>
+                            <option value="Анализ на данни">Анализ на данни</option>
+                            <option value="Математика">Математика</option>
+                            <option value="Приложна математика">Приложна математика</option>
+                            <option value="Статистика">Статистика</option>
+                            <option value="Математика и информатика">Математика и информатика</option>
+                        </select>
+                    </div>
+                    <div class="fn">
+                        <label for="fn">Факултетен номер</label>
+                        <input type="text" id="fn" name="fn" placeholder="Факултетен номер" value="">
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div class="in_alumni_container">
+                        <p id="in_alumni_text"></p>
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div class="form_submit">
+                        <input type="submit" value="Запази" id="submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
+</body>
+
+</html>

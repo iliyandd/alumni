@@ -1,4 +1,4 @@
-import { isValidName, isValidEmail, isValidPassword, addErrorMessages } from "../../GlobalScripts/validations.js";
+import { isValidName, isValidEmail, isValidPassword, addErrorMessages, isSamePassword, isValidFn, isValidSpeciality  } from "../../GlobalScripts/validations.js";
 const validate = (
   username,
   email,
@@ -14,39 +14,39 @@ const validate = (
     
     response.push({
       id: "username",
-      message: "Потребителското име не покрива изискванията за регистрация",
+      message: "*Потребителското име не покрива изискванията за регистрация",
     });
   }
   if (!isValidEmail(email)) {
     response.push({
       id: "email",
-      message: "Имейла не покрива изискванията за регистрация",
+      message: "*Имейла не покрива изискванията за регистрация",
     });
   }
   if (!isValidPassword(password)) {
     response.push({
       id: "password",
       message:
-        "Паролата трябва да е между 8 и 64 символа и да има поне една малка, голяма буква, цифра и специален символ",
+        "*Паролата трябва да е между 8 и 64 символа и да има поне една малка, голяма буква, цифра и специален символ",
     });
   }
   if (!isSamePassword(password, confirmPassword)) {
     response.push({
       id: "confirm_password",
-      message: "Паролите не съвпадат",
+      message: "*Паролите не съвпадат",
     });
   }
   if (!isValidFn(fn)) {
-    response.push({ id: "fn", message: "Невалиден факултетен номер" });
+    response.push({ id: "fn", message: "*Невалиден факултетен номер" });
   }
   if (!isValidSpeciality(speciality)) {
-    response.push({ id: "speciality", message: "Невалидна специалност" });
+    response.push({ id: "speciality", message: "*Невалидна специалност" });
   }
   if (!isValidName(firstName)) {
-    response.push({ id: "first_name", message: "Невалидно име" });
+    response.push({ id: "first_name", message: "*Невалидно име" });
   }
   if (!isValidName(lastName)) {
-    response.push({ id: "last_name", message: "Невалидна фамилия" });
+    response.push({ id: "last_name", message: "*Невалидна фамилия" });
   }
   if (response.length > 0) {
     response.push({ success: false });
@@ -121,19 +121,16 @@ form.addEventListener("submit", (e) => {
 
         console.log("success");
         console.log(data);
-        alert("You have successfully registered!");
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
+        alert("You have successfully registered!");
         // window.location.href = "../../login/login.html";
-        if (sessionStorage.hasOwnProperty("user")) {
-          user = JSON.parse(sessionStorage.getItem("user"));
-        }
         // Redirect to the home page
-        // window.location.href = "../../../front-end/profile/profile.html?user=" + user.id;
+         window.location.href = "../../front-end/profile/profile.html";
       })
       .catch((err) => {
         console.log(err);
-        alert(err.message + "\nTry again to register later");
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
+        alert(err.message + "\nTry again to register later");
       });
     //remove all error messages
   } else {

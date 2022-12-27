@@ -1,9 +1,14 @@
 <?php
 class User
 {
-    private $SAVE_QUERY = "INSERT INTO user (username, email, password, first_name, last_name, fn, speciality, in_alumni)"
-        . " VALUES (:username, :email, :password, :firstName, :lastName, :fn, :speciality, :inAlumni)";
+    private $SAVE_QUERY =
+        'INSERT INTO user (username, email, password, first_name, last_name, fn, speciality, in_alumni)' .
+        ' VALUES (:username, :email, :password, :firstName, :lastName, :fn, :speciality, :inAlumni)';
 
+    private $CHECK_QUERY = 'SELECT id FROM user WHERE username = :username or email = :email or fn = :fn';
+
+    private static $GET_BY_ID_QUERY = 'SELECT * FROM user WHERE id = :id';
+    private static $GET_BY_EMAIL_QUERY = 'SELECT * FROM user WHERE email = :email';
     private $id;
     private $username;
     private $email;
@@ -15,8 +20,18 @@ class User
     private $inAlumni;
     private $dateCreated;
 
-    public function __construct($username, $email, $password, $firstName, $lastName, $fn, $speciality, $inAlumni, $id = null, $dateCreated = null)
-    {
+    public function __construct(
+        $username,
+        $email,
+        $password,
+        $firstName,
+        $lastName,
+        $fn,
+        $speciality,
+        $inAlumni,
+        $id = null,
+        $dateCreated = null
+    ) {
         $this->id = $id;
         $this->username = $username;
         $this->email = $email;
@@ -29,19 +44,25 @@ class User
         $this->dateCreated = $dateCreated;
     }
 
-    public function toJson($detailInformation = false, $sensitiveInformation = false)
-    {
+    public function toJson(
+        $detailInformation = false,
+        $sensitiveInformation = false
+    ) {
         $result = [
-            "username" => $this->username, "email" => $this->email,
-            "firstName" => $this->firstName, "lastName" => $this->lastName, "fn" => $this->fn, "speciality" => $this->speciality,
-            "inAlumni" => $this->inAlumni
+            'username' => $this->username,
+            'email' => $this->email,
+            'firstName' => $this->firstName,
+            'lastName' => $this->lastName,
+            'fn' => $this->fn,
+            'speciality' => $this->speciality,
+            'inAlumni' => $this->inAlumni,
         ];
         if ($detailInformation) {
-            $result["id"] = $this->id;
-            $result["dateCreated"] = $this->dateCreated;
+            $result['id'] = $this->id;
+            $result['dateCreated'] = $this->dateCreated;
         }
         if ($sensitiveInformation) {
-            $result["password"] = $this->password;
+            $result['password'] = $this->password;
         }
 
         return $result;
@@ -98,7 +119,6 @@ class User
         return $this->dateCreated;
     }
 
-
     // Setters
     public function setId($id)
     {
@@ -154,8 +174,8 @@ class User
     public function save($connection)
     {
         $statement = $connection->prepare($this->SAVE_QUERY);
-        try{
-            $statement->execute($this->toJson(false,true));
+        try {
+            $statement->execute($this->toJson(false, true));
             return true;
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -165,49 +185,68 @@ class User
 
     public static function getById($connection, $id)
     {
-        $statement = $connection->prepare("SELECT * FROM user WHERE id = '?'");
-        $statement->execute([$id]);
-        $userData = $statement->fetchAll(PDO::FETCH_OBJ);
+        try {
+            $statement = $connection->prepare(User::$GET_BY_ID_QUERY);
+            $statement->execute(['id' => $id]);
+            $userData = $statement->fetch(PDO::FETCH_OBJ);
 
-        if (!$userData) {
+            if (!$userData) {
+                throw new Exception("User with id $id not found");
+            }
+        } catch (PDOException $e) {
+            echo $e->getMessage();
             return null;
         }
-
-        return new User(
-            $userData["username"],
-            $userData["email"],
-            $userData["password"],
-            $userData["first_name"],
-            $userData["last_name"],
-            $userData["fn"],
-            $userData["speciality"],
-            $userData["in_alumni"],
-            $userData["id"],
-            $userData["date_created"]
+        $user = new User(
+            $userData->username,
+            $userData->email,
+            $userData->password,
+            $userData->first_name,
+            $userData->last_name,
+            $userData->fn,
+            $userData->speciality,
+            $userData->in_alumni,
+            $userData->id,
+            $userData->date_created
         );
+        return $user;
     }
 
     public static function getByEmail($connection, $email)
     {
-        $statement = $connection->prepare("SELECT * FROM user WHERE email = '?'");
-        $statement->execute([$email]);
-        $userData = $statement->fetchAll(PDO::FETCH_OBJ);
+        $statement = $connection->prepare(User::$GET_BY_EMAIL_QUERY);
+        $statement->execute(['email' => $email]);
+        $userData = $statement->fetch(PDO::FETCH_OBJ);
 
         if (!$userData) {
             return null;
         }
 
         return new User(
-            $userData["username"],
-            $userData["email"],
-            $userData["password"],
-            $userData["first_name"],
-            $userData["last_name"],
-            $userData["fn"],
-            $userData["speciality"],
-            $userData["in_alumni"],
-            $userData["id"],
-            $userData["date_created"]
+            $userData->username,
+            $userData->email,
+            $userData->password,
+            $userData->first_name,
+            $userData->last_name,
+            $userData->fn,
+            $userData->speciality,
+            $userData->in_alumni,
+            $userData->id,
+            $userData->date_created
         );
+    }
+
+    public function userExists($connection, $id = null)
+    {
+        $statement = $connection->prepare($this->CHECK_QUERY);
+        $statement->execute([
+            'username' => $this->getUsername(),
+            'email' => $this->getEmail(),
+            'fn' => $this->getFn(),
+        ]);
+        return $id == null
+            ? $statement->rowCount() > 0
+            : $statement->rowCount() > 0 &&
+                    $statement->fetch(PDO::FETCH_OBJ)->id != $id;
     }
 }
