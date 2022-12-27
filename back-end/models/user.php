@@ -5,6 +5,8 @@ class User
         'INSERT INTO user (username, email, password, first_name, last_name, fn, speciality, in_alumni)' .
         ' VALUES (:username, :email, :password, :firstName, :lastName, :fn, :speciality, :inAlumni)';
 
+    private $CHECK_QUERY = 'SELECT id FROM user WHERE username = :username or email = :email or fn = :fn';
+
     private static $GET_BY_ID_QUERY = 'SELECT * FROM user WHERE id = :id';
     private static $GET_BY_EMAIL_QUERY = 'SELECT * FROM user WHERE email = :email';
     private $id;
@@ -232,5 +234,19 @@ class User
             $userData->id,
             $userData->date_created
         );
+    }
+
+    public function userExists($connection, $id = null)
+    {
+        $statement = $connection->prepare($this->CHECK_QUERY);
+        $statement->execute([
+            'username' => $this->getUsername(),
+            'email' => $this->getEmail(),
+            'fn' => $this->getFn(),
+        ]);
+        return $id == null
+            ? $statement->rowCount() > 0
+            : $statement->rowCount() > 0 &&
+                    $statement->fetch(PDO::FETCH_OBJ)->id != $id;
     }
 }

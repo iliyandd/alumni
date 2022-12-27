@@ -24,7 +24,7 @@ $registerHandler = new RegisterApiHandler($connection, $user);
 
 try {
     // check whether user exists
-    if ($registerHandler->userExists()) {
+    if ($user->userExists($connection)) {
         http_response_code(400);
         exit(
             json_encode(
