@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
       
         $updateApiHandler = new UpdateApiHandler($connection, $user);
 
-        if ($user->userExists($connection, $user->getId())) {
+        if ($user->userExists($connection, true)) {
             http_response_code(400);
             exit(
                 json_encode(
