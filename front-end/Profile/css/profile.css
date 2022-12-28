@@ -3,11 +3,13 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   font-family: "Poppins", sans-serif;
 }
+
 header {
-  background: #fff;
+  background: aliceblue;
   height: 80px;
   width: 100%;
   position: relative;
@@ -16,6 +18,7 @@ header {
   z-index: 999;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .container {
   margin: 0 10%;
   margin-top: 50px;
@@ -52,17 +55,20 @@ header {
   justify-content: space-between;
   align-items: center;
 }
+
 .container .edit_profile_form .form_group {
   margin-top: 20px;
   margin-bottom: 20px;
   width: 100%;
 }
+
 .container .edit_profile_form .form_names .form_names_first_name,
 .container .edit_profile_form .form_names .form_names_last_name,
 .container .edit_profile_form .additional_info .speciality,
 .container .edit_profile_form .additional_info .fn {
   width: 48%;
 }
+
 .container .edit_profile_form input,
 .container .edit_profile_form select,
 .container .edit_profile_form option {
@@ -73,6 +79,7 @@ header {
   border: 1px solid #ccc;
   border-radius: 5px;
 }
+
 .container .edit_profile_form label {
   font-size: 14px;
   margin-bottom: 5px;
@@ -80,12 +87,15 @@ header {
   display: block;
   color: #666;
 }
+
 .container .edit_profile_form .form_group .in_alumni_container {
   text-align: center;
 }
+
 .container .edit_profile_form .form_group .form_submit {
   width: 20%;
 }
+
 .container .edit_profile_form .form_group .form_submit #submit {
   background-color: #4caf50;
   border: none;
@@ -98,17 +108,65 @@ header {
   margin: 4px 2px;
   cursor: pointer;
 }
+
 .container .edit_profile_form .form_group .form_submit #submit:hover {
   background-color: #3c8940;
 }
+
 .container .edit_profile_form select,
 .container .edit_profile_form option {
   cursor: pointer;
   background-color: #fff;
 }
+
 .container .edit_profile_form select:hover,
 .container .edit_profile_form option:hover,
 .container .edit_profile_form input:focus,
 .container .edit_profile_form input:hover {
   background-color: #f2f2f2;
+}
+
+.logo {
+  width: 100px;
+}
+
+.main_nav {
+  width: 100%;
+}
+
+.right_nav {
+  margin-left: 10%;
+}
+
+.main_nav_list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
+  padding-inline-start: 40px;
+}
+
+.main_nav_item_link {
+  display: block;
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  padding: 5px 15px;
+  border-radius: 20px;
+  height: 100%;
+}
+
+.main_nav_item_link:hover {
+  background-color: #144272;
+}
+
+.main_nav_item_link {
+  border: 1px solid #ccc;
+  background-color: #2C74B3;
+  color: #fff;
 }
