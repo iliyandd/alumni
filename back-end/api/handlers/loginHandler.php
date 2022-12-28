@@ -19,25 +19,30 @@ class LoginHandler
 
     public function action()
     {
-        $statement = $this->connection->prepare($this->LOGIN_QUERY);
-        $statement->execute(['email' => $this->email]);
-        $userData = $statement->fetch(PDO::FETCH_OBJ);
+        try {
+            $statement = $this->connection->prepare($this->LOGIN_QUERY);
+            $statement->execute(['email' => $this->email]);
+            $userData = $statement->fetch(PDO::FETCH_OBJ);
 
-        if (!$userData || !password_verify($this->password, $userData->password)) {
-            return null;
+            if (!$userData || !password_verify($this->password, $userData->password)) {
+                return null;
+            }
+
+            return new User(
+                $userData->username,
+                $userData->email,
+                $userData->password,
+                $userData->first_name,
+                $userData->last_name,
+                $userData->fn,
+                $userData->speciality,
+                $userData->in_alumni,
+                $userData->id,
+                $userData->date_created
+            );
+        } catch (PDOException $err) {
+            echo $err->getMessage();
         }
-
-        return new User(
-            $userData->username,
-            $userData->email,
-            $userData->password,
-            $userData->first_name,
-            $userData->last_name,
-            $userData->fn,
-            $userData->speciality,
-            $userData->in_alumni,
-            $userData->id,
-            $userData->date_created
-        );
+        return null;
     }
 }
