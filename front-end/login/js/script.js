@@ -31,7 +31,7 @@ form.addEventListener("submit", (e) => {
       email: email.value,
       password: password.value,
     };
-    fetch("../../../back-end/api/login/login.php", {
+    fetch("../../../../alumni/back-end/api/login.php", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -39,31 +39,27 @@ form.addEventListener("submit", (e) => {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        if (!response.ok) {
+        if (!response.ok && response.status !== 404) {
           // Check the status code and throw an error if it's not in the 2xx range
           throw new Error(
-            `Error with status code: ${response.status} and message: ${response.statusText}`
+            `Грешка с код: ${response.status} и съобщение: ${response.statusText}`
           );
         }
         return response.json();
       })
       .then((data) => {
         // Check the data object for any error messages or flags
-        if (data.error) {
-          throw new Error(data.error);
+        if (data.status === 'error') {
+          throw new Error(data.message);
         }
         console.log("success");
-        alert("You have successfully login!");
+        alert(data.message);
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        let user;
-        if (sessionStorage.hasOwnProperty("user")) {
-          user = JSON.parse(sessionStorage.getItem("user"));
-        }
         // Redirect to the home page
-        // window.location.href = "../../../front-end/profile/profile.html?user=" + user.id;
+        window.location.href = "../../../../alumni/front-end/profile/profile.html";
       })
       .catch((err) => {
-        alert(err.message + "\nTry again to login later");
+        alert(err + "\nОпитай да се впишеш отново по-късно.");
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
       });
   } else {

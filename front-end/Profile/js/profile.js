@@ -200,14 +200,14 @@ form.addEventListener("submit", async (e) => {
         }
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
         console.log(updatedProfile);
-        alert("Профилът е обновен успешно");
+        alert("Профилът е редактиран успешно!");
         //reload
         window.location.reload();
       }
     } catch (err) {
       console.log(err);
       [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-      alert(err.message + "\nTry again to update user later");
+      alert(err.message + "\Опитай да редактираш профила си отново по-късно.");
     }
   } else {
     addErrorMessages(response);
