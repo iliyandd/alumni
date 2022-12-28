@@ -78,7 +78,8 @@ body {
 
 .form_control select:hover,
 .form_control option:hover,
-.form_control input:focus {
+.form_control input:focus,
+.form_control input:hover {
   background-color: #f2f2f2;
 }
 

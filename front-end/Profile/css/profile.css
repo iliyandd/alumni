@@ -84,30 +84,31 @@ header {
   text-align: center;
 }
 .container .edit_profile_form .form_group .form_submit {
-    width:20%;
+  width: 20%;
 }
 .container .edit_profile_form .form_group .form_submit #submit {
-    background-color: #4CAF50;
-    border: none;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
-    cursor: pointer;
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
 }
 .container .edit_profile_form .form_group .form_submit #submit:hover {
-    background-color: #3c8940;
+  background-color: #3c8940;
 }
 .container .edit_profile_form select,
 .container .edit_profile_form option {
-    cursor: pointer;
-    background-color: #fff;
+  cursor: pointer;
+  background-color: #fff;
 }
 .container .edit_profile_form select:hover,
 .container .edit_profile_form option:hover,
-.container .edit_profile_form input:focus {
-    background-color: #f2f2f2;
+.container .edit_profile_form input:focus,
+.container .edit_profile_form input:hover {
+  background-color: #f2f2f2;
 }
