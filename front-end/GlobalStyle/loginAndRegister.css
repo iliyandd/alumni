@@ -1,126 +1,168 @@
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    padding: 0;
-    background-image: url("../../img/fmi_web_project.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
-    font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  background-image: url("../../img/fmi_web_project.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  font-family: "Poppins", sans-serif;
 }
 
 #login_form,
 #register_form {
-    margin-left: 50%;
-    margin-top: 10%;
-    width: 45%;
+  margin-left: 50%;
+  margin-top: 10%;
+  width: 45%;
 }
 
 .register_header,
 .login_header {
-    padding: 20px;
-    width: 45%;
-    text-align: center;
-    margin-left: 50%;
-    margin-top: 10%;
-    margin-bottom: -5%;
+  padding: 20px;
+  width: 45%;
+  text-align: center;
+  margin-left: 50%;
+  margin-top: 2%;
+  margin-bottom: -5%;
 }
 
 .form_control input,
 .form_control select,
 .form_control option {
-    width: 100%;
-    padding: 2px 10px;
-    height: 40px;
-    display: block;
-    border: 1px solid #ccc;
-    /* margin-bottom: 12px; */
-    border-radius: 5px;
-    font-size: 15px;
+  width: 100%;
+  padding: 2px 10px;
+  height: 40px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 15px;
 }
 
 .form_control label {
-    font-size: 15px;
-    margin-bottom: 5px;
-    padding-left: 5px;
-    display: block;
-    color: #000;
+  font-size: 15px;
+  margin-bottom: 5px;
+  padding-left: 5px;
+  display: block;
+  color: #000;
 }
 
 .form_control {
-    padding: 10px 20px;
+  padding: 10px 20px;
 }
 
 .form_control button {
-    background-color: #4CAF50;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    padding: 5px 10px;
-    text-align: center;
-    display: inline-block;
-    font-size: 20px;
-    margin: 10px 2px;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out;
+  background-color: #4caf50;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  display: inline-block;
+  font-size: 20px;
+  margin: 10px 2px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
 }
 
 .form_control button:hover {
-    background-color: #3c8940;
+  background-color: #3c8940;
 }
 
 .form_control select,
 .form_control option {
-    cursor: pointer;
-    background-color: #fff;
+  cursor: pointer;
+  background-color: #fff;
 }
 
 .form_control select:hover,
 .form_control option:hover,
-.form_control input:focus {
-    background-color: #f2f2f2;
+.form_control input:focus,
+.form_control input:hover {
+  background-color: #f2f2f2;
 }
 
 .reference_to_register {
-    color: black;
-    text-decoration: none;
-    font-size: 18px;
-    text-align: center;
-    padding: 10px 0;
+  color: black;
+  text-decoration: none;
+  font-size: 18px;
+  text-align: center;
+  padding: 10px 0;
 }
 
 .reference_to_register a {
-    color: #00FF0A;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
+  color: #00ff0a;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
 }
 
 .reference_to_register a:hover {
-    text-decoration: underline;
-    color:#8bff2c;
+  text-decoration: underline;
+  color: #8bff2c;
 }
 
 .transbox {
-    position: relative;
-    padding-bottom: 15px;
+  position: relative;
+  padding-bottom: 15px;
 }
 
 .transbox::before {
-    content: "";
-    position: absolute;
-    width: 45%;
-    margin-left: 50%;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: -1;
-    background-color: rgba(255, 255, 255, 0.5);
-    margin-bottom: 15px;
+  content: "";
+  position: absolute;
+  width: 45%;
+  margin-left: 50%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background-color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 15px;
 }
 
-.form_btn{
-    padding-bottom: 15px;
+.form_btn {
+  padding-bottom: 15px;
+}
+
+.login_register_nav {
+  margin-left: 50%;
+  width: 45%;
+  padding-top: 2%;
+  margin-top: 2%;
+}
+
+.login_register_nav_list {
+  list-style-type: none;
+  padding: 0;
+  overflow: hidden;
+  display: flex;
+  justify-content: space-between;
+  width: 12rem;
+  margin: 0 auto;
+  border: 1px solid aliceblue;
+  border-radius: 20px;
+}
+.login_register_nav_item {
+  border-radius: 20px;
+  color: #000;
+}
+.login_register_nav_item_link {
+  display: block;
+  color: #000;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  padding: 5px 15px;
+  border-radius: 20px;
+  height: 100%;
+}
+.login_register_nav_item_link:hover {
+  background-color: #f2f2f2;
+}
+.login_register_nav_item_link.active {
+  border: 1px solid #ccc;
+  background-color: #4caf50;
+  color: #fff;
 }

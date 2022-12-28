@@ -236,7 +236,7 @@ class User
         );
     }
 
-    public function userExists($connection, $id = null)
+    public function userExists($connection, $hasId = false)
     {
         $statement = $connection->prepare($this->CHECK_QUERY);
         $statement->execute([
@@ -244,9 +244,9 @@ class User
             'email' => $this->getEmail(),
             'fn' => $this->getFn(),
         ]);
-        return $id == null
-            ? $statement->rowCount() > 0
-            : $statement->rowCount() > 0 &&
-                    $statement->fetch(PDO::FETCH_OBJ)->id != $id;
+        return $hasId
+            ? $statement->rowCount() > 0 &&
+                    $statement->fetch(PDO::FETCH_OBJ)->id != $this->getId()
+            : $statement->rowCount() > 0;
     }
 }
