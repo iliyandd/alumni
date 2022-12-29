@@ -1,8 +1,22 @@
 import { isValidEmail, isEmpty, addErrorMessages } from "../../GlobalScripts/validations.js";
+import { getSession } from "../../GlobalScripts/session.js";
+
+window.addEventListener("load", async () => {
+  let sessionId = null;
+  const sessionObj = await getSession();
+  sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
+
+  if (sessionId) {
+    alert("You are already logged in");
+    window.location.href = "../../../../alumni/front-end/Profile/Profile.html";
+    return;
+  }
+});
+
 const validate = (email, password) => {
   const response = [];
   if (!isValidEmail(email)) {
-    response.push({ id: "email", message: "Имейла не е валиден" });
+    response.push({ id: "email", message: "Имейлът не е валиден" });
   }
   if (isEmpty(password)) {
     response.push({ id: "password", message: "Паролата не е въведена" });

@@ -4,6 +4,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     if (isset($_SESSION['user'])) {
         session_unset();
         session_destroy();
-        header('Location: ../../front-end/login/login.html');
     }
+    header('Location: ../../front-end/login/login.html');
 }
