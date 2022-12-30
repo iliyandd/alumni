@@ -1,54 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+
 .header_navigation {
-    background-color: #2C74B3;
-    height: 80px;
-    width: 100%;
-    position: relative;
-    top: 0;
-    left: 0;
-    z-index: 999;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+  background-color: #2c74b3;
+  height: 80px;
+  width: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
 
 .logo {
-    width: 100px;
-    height: 80px;
-  }
-  
-  .main_nav {
-    width: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 auto;
-  }
-  
-  
-  
-  .main_nav_list {
-    display: flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    width: 100%;
-    justify-content: space-between;
-  }
-  
+  width: 80px;
+  height: 60px;
+}
+
+.main_nav {
+  width: 80%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto;
+  height: 100%;
+}
+
+.main_nav_list {
+  display: flex;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.main_nav_item_link {
+  display: block;
+  color: aliceblue;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.3s ease-in-out;
+  width: 100%;
+  padding: 5px 15px;
+  height: 100%;
+  cursor: pointer;
+  font-size: 16px;
+}
+.main_nav_item_link:hover,
+.main_nav_item_link.active {
+  background-color: aliceblue;
+  color: #2c74b3;
+}
+
+@media (max-width: 1200px) {
   .main_nav_item_link {
-    display: block;
-    color: aliceblue;
-    text-align: center;
-    text-decoration: none;
-    transition: all 0.3s ease-in-out;
+    font-size: 14px;
+  }
+}
+@media (max-width: 1000px) {
+  .main_nav_item_link {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+  .main_nav {
+    width: 90%;
+  }
+}
+@media (max-width: 768px) {
+  .main_nav {
+    width: 95%;
+  }
+  .main_nav_item_link {
+    padding: 5px;
+  }
+}
+@media (max-width: 650px) {
+  .header_navigation {
+    height: 60px;
+  }
+  .logo {
+    width: 60px;
+    height: 40px;
+  }
+  .main_nav {
     width: 100%;
-    padding: 5px 15px;
-    height: 100%;
-    cursor: pointer;
   }
-  
-  .main_nav_item_link:hover {
-    background-color: aliceblue;
-    color: #2C74B3;
+}
+@media (max-width: 600px) {
+  .main_nav_item_link {
+    padding: 5px;
+    font-size: 10px;
   }
-  
-  
+}
