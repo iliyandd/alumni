@@ -1,0 +1,85 @@
+<?php
+
+require_once '../db/database.php';
+require_once 'handlers/eventHandler.php';
+
+if ($_SERVER['REQUEST_METHOD'] === 'GET') {
+    $eventHandler = new EventHandler($connection, 'GET');
+
+    try {
+        $db = new Database();
+        $connection = $db->getConnection();
+
+        $result = $eventHandler->action();
+        if ($result === null) {
+            http_response_code(400);
+            exit(json_encode(
+                [
+                    'status' => 'error',
+                    'message' => 'Възникна грешка при извличането на събития!',
+                    'result' => [],
+                ],
+                JSON_UNESCAPED_UNICODE
+            ));
+        } else {
+            http_response_code(200);
+            exit(json_encode(
+                [
+                    'status' => 'success',
+                    'message' => 'Успешно извличане на събитията!',
+                    'result' => $result,
+                ],
+                JSON_UNESCAPED_UNICODE
+            ));
+        }
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+        http_response_code(500);
+        exit(json_encode(
+            [
+                'status' => 'error',
+                'message' => 'Възникна грешка с базата!',
+            ],
+            JSON_UNESCAPED_UNICODE
+        ));
+    }
+} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $parameters = file_get_contents('php://input');
+    $data = json_decode($parameters, true);
+    $eventHandler = new EventHandler($connection, 'POST', $data);
+
+    try {
+        $db = new Database();
+        $connection = $db->getConnection();
+
+        if ($eventHandler->action()) {
+            http_response_code(201);
+            exit(json_encode(
+                [
+                    'status' => 'success',
+                    'message' => 'Успешно създадохте събитие!',
+                ],
+                JSON_UNESCAPED_UNICODE
+            ));
+        } else {
+            http_response_code(400);
+            exit(json_encode(
+                [
+                    'status' => 'error',
+                    'message' => 'Възникна грешка при създаването на събитие!',
+                ],
+                JSON_UNESCAPED_UNICODE
+            ));
+        }
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+        http_response_code(500);
+        exit(json_encode(
+            [
+                'status' => 'error',
+                'message' => 'Възникна грешка с базата!',
+            ],
+            JSON_UNESCAPED_UNICODE
+        ));
+    }
+}
