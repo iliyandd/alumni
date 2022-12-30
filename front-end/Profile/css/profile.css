@@ -1,17 +1,5 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: "Poppins", sans-serif;
-}
-
-
-
 .container {
-  margin: 0 10%;
+  margin: 0 auto;
   margin-top: 50px;
   max-width: 1300px;
   padding: 25px;
@@ -45,6 +33,7 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-direction: row;
 }
 
 .container .edit_profile_form .form_group {
@@ -117,3 +106,31 @@ body {
   background-color: #f2f2f2;
 }
 
+@media (max-width: 1000px) {
+  .container {
+    width: 90%;
+  }
+  .container .profile_header {
+    font-size: 18px;
+  }
+}
+@media (max-width: 650px) {
+  .container {
+    width: 100%;
+  }
+
+  .container .edit_profile_form .form_names,
+  .container .edit_profile_form .additional_info {
+    flex-direction: column;
+  }
+  .container .edit_profile_form .form_names .form_names_first_name,
+  .container .edit_profile_form .additional_info .speciality,
+  .container .edit_profile_form .additional_info .fn {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+  .container .edit_profile_form .form_group,
+  .container .edit_profile_form .form_names .form_names_last_name  {
+    width: 100%;
+  }
+}

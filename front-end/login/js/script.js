@@ -8,7 +8,7 @@ window.addEventListener("load", async () => {
 
   if (sessionId) {
     alert("You are already logged in");
-    window.location.href = "../../../../alumni/front-end/Profile/Profile.html";
+    window.location.href = "../../../../alumni/front-end/profile/profile.html";
     return;
   }
 });
