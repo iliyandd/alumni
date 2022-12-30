@@ -1,0 +1,80 @@
+.container .create_event_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+  font-size: 24px;
+}
+
+.container .create_event_form {
+  margin: 10px 2%;
+  padding: 10px;
+}
+
+.container .create_event_form .form_group {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.container .create_event_form input {
+  width: 100%;
+  padding: 2px 10px;
+  height: 40px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.container .create_event_form textarea {
+  width: 100%;
+  padding: 2px 10px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.container .create_event_form label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  padding-left: 5px;
+  display: block;
+  color: #000;
+}
+
+.container .create_event_form .form_group .form_submit {
+  width: 20%;
+}
+
+.container .create_event_form .form_group .form_submit #submit {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.container .create_event_form .form_group .form_submit #submit:hover {
+  background-color: #3c8940;
+}
+
+.container .create_event_form input:focus,
+.container .create_event_form input:hover {
+  background-color: #f2f2f2;
+}
+
+@media (max-width: 1000px) {
+  .container .create_event_header {
+    font-size: 18px;
+  }
+}
+@media (max-width: 650px) {
+  .container .create_event_form .form_group .form_submit {
+    width: 100%;
+  }
+}
