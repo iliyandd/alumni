@@ -3,7 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     session_start();
     if (isset($_SESSION['user'])) {
         http_response_code(200);
-        echo json_encode($_SESSION['user']);
+        echo json_encode($_SESSION['user']);    
         return json_encode($_SESSION['user']);
     } else {
         http_response_code(401);

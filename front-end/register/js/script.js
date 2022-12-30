@@ -1,4 +1,4 @@
-import { isValidName, isValidEmail, isValidPassword, addErrorMessages, isSamePassword, isValidFn, isValidSpeciality  } from "../../GlobalScripts/validations.js";
+import { isValidName, isValidEmail, isValidPassword, addErrorMessages, isSamePassword, isValidFn, isValidSpeciality } from "../../GlobalScripts/validations.js";
 const validate = (
   username,
   email,
@@ -11,7 +11,7 @@ const validate = (
 ) => {
   const response = [];
   if (!isValidName(username)) {
-    
+
     response.push({
       id: "username",
       message: "*Потребителското име не покрива изискванията за регистрация",
@@ -106,31 +106,27 @@ form.addEventListener("submit", (e) => {
       body: JSON.stringify(data),
     })
       .then((response) => {
-        if (response.ok) {
-          return response.json();
-        } else {
+        if (!response.ok && response.status !== 400) {
           throw new Error(
-            `Error with status code: ${response.status} and message: ${response.statusText}`
+            `Грешка с код: ${response.status} и съобщение: ${response.statusText}`
           );
         }
+
+        return response.json();
       })
       .then((data) => {
-        if (data.error) {
-          throw new Error(data.error);
+        console.log(data);
+        if (data.status === 'error') {
+          throw new Error(data.message);
         }
 
-        console.log("success");
-        console.log(data);
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        alert("You have successfully registered!");
-        // window.location.href = "../../login/login.html";
-        // Redirect to the home page
-         window.location.href = "../../front-end/profile/profile.html";
+        alert("Ти се регистрира успешно!");
+        window.location.href = "../login/login.html";
       })
       .catch((err) => {
-        console.log(err);
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        alert(err.message + "\nTry again to register later");
+        alert(err + "\nОпитай да се регистрираш отново по-късно.");
       });
     //remove all error messages
   } else {
