@@ -4,6 +4,7 @@ class Event
 {
     private $SAVE_QUERY = 'INSERT INTO event (title, description, creator, date)' .
         ' VALUES (:title, :description, :creator, :date)';
+    private static $GET_ALL_QUERY = 'SELECT * FROM event ORDER BY date';
     private static $GET_BY_ID_QUERY = 'SELECT * FROM event WHERE id = :id';
 
     private $id;
@@ -41,8 +42,20 @@ class Event
             return true;
         } catch (PDOException $err) {
             echo $err->getMessage();
-            return false;
         }
+        return false;
+    }
+
+    public static function getAll($connection)
+    {
+        try {
+            $statement = $connection->prepare(Event::$GET_ALL_QUERY);
+            $statement->execute();
+            return $statement->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $err) {
+            echo $err->getMessage();
+        }
+        return null;
     }
 
     public static function getById($connection, $id)
