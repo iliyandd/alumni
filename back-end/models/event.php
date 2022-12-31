@@ -4,7 +4,8 @@ class Event
 {
     private $SAVE_QUERY = 'INSERT INTO event (title, description, creator, date)' .
         ' VALUES (:title, :description, :creator, :date)';
-    private static $GET_ALL_QUERY = 'SELECT * FROM event ORDER BY date';
+    private static $GET_ALL_QUERY = 'SELECT event.id, title, description, creator, date, event.date_created, first_name, last_name' .
+        'FROM event ORDER BY date JOIN user on creator = user.id';
     private static $GET_BY_ID_QUERY = 'SELECT * FROM event WHERE id = :id';
 
     private $id;
