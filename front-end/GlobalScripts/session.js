@@ -1,6 +1,6 @@
 export const getSession = async () => {
     try {
-        const response = await fetch(`../../back-end/api/handlers/getSession.php`, {
+        const response = await fetch("../../back-end/api/handlers/getSession.php", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
