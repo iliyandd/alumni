@@ -1,8 +1,6 @@
 import { getSession } from "../../GlobalScripts/session.js";
-import {
-  isValidName,
-  addErrorMessages,
-} from "../../GlobalScripts/validations.js";
+import { isValidName, addErrorMessages } from "../../GlobalScripts/validations.js";
+
 window.addEventListener("load", async () => {
   let sessionId = null;
   const sessionObj = await getSession();
@@ -18,11 +16,9 @@ window.addEventListener("load", async () => {
     window.location.href = "../profile/profile.html";
     return;
   }
-
-  document.cookie = `sessionId=${sessionId}`;
 });
 
-const validate = (title, description, date) => {
+const validate = (title, date) => {
   const response = [];
   if (!isValidName(title)) {
     response.push({
@@ -50,41 +46,30 @@ const validate = (title, description, date) => {
 const form = document.querySelector(".create_event_form");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
-  debugger;
   const title = document.querySelector("#title");
   const description = document.querySelector("#description");
   const date = document.querySelector("#date");
-  const response = validate(title.value, description.value, date.value);
-
-  console.log(response);
+  const response = validate(title.value, date.value);
 
   const success = response.find(
     (element) => element.success !== undefined
   )?.success;
   if (success) {
-    //get the cookie with id session id and add it to the data
-    const id = document.cookie
-      .split("; ")
-      .find((row) => row.startsWith("sessionId"))
-      .split("=")[1];
-
     const data = {
       title: title.value,
       description: description.value,
-      creator: id,
       date: date.value,
     };
-    console.log(data);
 
     try {
       const response = await fetch(
         "../../../../alumni/back-end/api/events.php",
         {
           method: "POST",
-          body: JSON.stringify(data),
           headers: {
             "Content-Type": "application/json",
           },
+          body: JSON.stringify(data),
         }
       );
       if (response.ok) {
@@ -93,15 +78,13 @@ form.addEventListener("submit", async (e) => {
           throw new Error(data.error);
         }
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        console.log(addedEvent);
         alert("Събитието е създадено успешно!");
-        //locate to the events page
+
         window.location.href = "./events.html";
       } else {
         throw new Error("Неуспешно добавяне на събитие!\n");
       }
     } catch (err) {
-      console.log(err);
       [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
       alert(err.message + "Опитай да добавиш събитие отново по-късно.");
     }

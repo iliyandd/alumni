@@ -4,11 +4,10 @@ require_once '../db/database.php';
 require_once 'handlers/eventHandler.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    $eventHandler = new EventHandler($connection, 'GET');
-
     try {
         $db = new Database();
         $connection = $db->getConnection();
+        $eventHandler = new EventHandler($connection, 'GET');
 
         $result = $eventHandler->action();
         if ($result === null) {
@@ -46,11 +45,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
 } elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $parameters = file_get_contents('php://input');
     $data = json_decode($parameters, true);
-    $eventHandler = new EventHandler($connection, 'POST', $data);
 
     try {
         $db = new Database();
         $connection = $db->getConnection();
+        $eventHandler = new EventHandler($connection, 'POST', $data);
 
         if ($eventHandler->action()) {
             http_response_code(201);

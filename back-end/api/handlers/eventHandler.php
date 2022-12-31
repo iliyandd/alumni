@@ -1,6 +1,6 @@
 <?php
 
-require_once '../../models/event.php';
+require_once '../../../alumni/back-end/models/event.php';
 
 class EventHandler
 {
@@ -31,6 +31,7 @@ class EventHandler
 
     private function createEvent()
     {
+        session_start();
         $event = new Event($this->data['title'], $this->data['description'], $_SESSION['user']['id'], $this->data['date']);
         return $event->save($this->connection);
     }
