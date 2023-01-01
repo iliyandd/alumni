@@ -66,10 +66,10 @@ const getEvents = async () => {
       console.log(data);
       return data.result;
     } else {
-      throw new Error("Неуспешно показване на събитията!\n");
+      throw new Error("Неуспешно зареждане на събитията!\n");
     }
   } catch (err) {
-    alert(err.message + "Опитай да видиш събитията по-късно.");
+    alert(err.message + "Опитай отново по-късно.");
   }
 };
 
