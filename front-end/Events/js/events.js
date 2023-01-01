@@ -1,6 +1,36 @@
 import { getSession } from "../../GlobalScripts/session.js";
+window.addEventListener("load", async () => {
+  let sessionId = null;
+  const sessionObj = await getSession();
+  sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
-const generateEvent = (data) => {
+  if (!sessionId) {
+    alert("You are not logged in");
+    window.location.href = "../login/login.html";
+    return;
+  }
+  if (!sessionObj.inAlumni) {
+    alert("You are not in alumni club");
+    window.location.href = "../profile/profile.html";
+    return;
+  }
+
+  const data = await getEvents();
+  data.forEach((event) => {
+    generateEvent(event, sessionId);
+  });
+
+  const events = document.querySelectorAll(".event");
+  events.forEach((event) => {
+    //on click event to go to event page
+    event.addEventListener("click", () => {
+      const id = event.querySelector(".event_id").innerText;
+      window.location.href = `./event.html?id=${id}&edit=0"`;
+    });
+  });
+});
+
+const generateEvent = (data, userId) => {
   const parent = document.querySelector(".events_list");
   const event = document.createElement("div");
   event.classList.add("event");
@@ -10,10 +40,14 @@ const generateEvent = (data) => {
         <h4>${data.firstName} ${data.lastName}</h4>
         <h4>${data.date}</h4>
     </div>
-    <div class="event_addition">
-        <a href="./event.html?id=${data.id}&edit=1" class="event_addition_edit"></a>
-        <a href="./events.html?id=${data.id}&delete=1" class="event_addition_delete"></a>
-    </div>
+    ${
+      userId == data.creator
+        ? `<div class="event_addition">
+    <a href="./event.html?id=${data.id}&edit=1" class="event_addition_edit"></a>
+    <a href="./events.html?id=${data.id}&delete=1" class="event_addition_delete"></a>
+    </div>`
+        : ""
+    }
     <span class="event_id">${data.id}</span>`;
   parent.appendChild(event);
 };
@@ -39,33 +73,3 @@ const getEvents = async () => {
   }
 };
 
-window.addEventListener("load", async () => {
-  let sessionId = null;
-  const sessionObj = await getSession();
-  sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
-
-  if (!sessionId) {
-    alert("You are not logged in");
-    window.location.href = "../login/login.html";
-    return;
-  }
-  if (!sessionObj.inAlumni) {
-    alert("You are not in alumni club");
-    window.location.href = "../profile/profile.html";
-    return;
-  }
-
-  const data = await getEvents();
-  data.forEach((event) => {
-    generateEvent(event);
-  });
-  
-  const events = document.querySelectorAll(".event");
-  events.forEach((event) => {
-    //on click event to go to event page
-    event.addEventListener("click", () => {
-      const id = event.querySelector(".event_id").innerText;
-      window.location.href = `./event.html?id=${id}&edit=0"`;
-    });
-  });
-});
