@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $connection = $db->getConnection();
         $eventHandler = new EventHandler($connection, 'GET');
 
-        $result = $eventHandler->action();
+        $result = $eventHandler->action(isset($_GET['id']) ? $_GET['id'] : null);
         if ($result === null) {
             http_response_code(400);
             exit(json_encode(
