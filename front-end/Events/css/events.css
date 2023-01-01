@@ -49,6 +49,7 @@
     align-items: center;
     margin: 10px 0;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    cursor: pointer;
 }
 
 .container .events_list .event .event_headers h3{
@@ -76,14 +77,6 @@
     width: 100%;
     color: #666;
 }
-/* .container .events_list .event .event_addition .event_addition_edit::after {
-    content: "\f044";
-} */
-/* .container .events_list .event .event_addition .event_addition_delete::after {
-    content: "\1F5D1";
-    font-size: 34px;
-    color: #000;
-} */
 .container .events_list .event .event_addition .event_addition_edit::after {
     content: "\270e";
     font-size: 30px;
@@ -103,4 +96,7 @@
     content: "\1F5D1";
     font-size: 30px;
     color: #50504e;
+}
+.container .event .event_id {
+    display: none;
 }
