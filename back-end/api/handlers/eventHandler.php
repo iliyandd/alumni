@@ -15,10 +15,13 @@ class EventHandler
         $this->data = $data;
     }
 
-    public function action()
+    public function action($idQueryParameter = null)
     {
         if ($this->method === 'GET') {
-            return $this->listEvents();
+            if (!$idQueryParameter) {
+                return $this->listEvents();
+            }
+            return Event::getById($this->connection, $idQueryParameter);
         } elseif ($this->method === 'POST') {
             return $this->createEvent();
         }
