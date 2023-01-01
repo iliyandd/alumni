@@ -32,10 +32,10 @@ const getEvents = async () => {
       console.log(data);
       return data.result;
     } else {
-      throw new Error("Неуспешно показване на събитията!\n");
+      throw new Error("Неуспешно зареждане на събитията!\n");
     }
   } catch (err) {
-    alert(err.message + "Опитай да видиш събитията по-късно.");
+    alert(err.message + "Опитай отново по-късно.");
   }
 };
 
@@ -59,7 +59,7 @@ window.addEventListener("load", async () => {
   data.forEach((event) => {
     generateEvent(event);
   });
-  
+
   const events = document.querySelectorAll(".event");
   events.forEach((event) => {
     //on click event to go to event page
