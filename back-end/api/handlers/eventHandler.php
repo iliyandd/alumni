@@ -24,6 +24,8 @@ class EventHandler
             return Event::getById($this->connection, $idQueryParameter);
         } elseif ($this->method === 'POST') {
             return $this->createEvent();
+        } elseif ($this->method === 'DELETE') {
+            return $this->deleteEvent();
         }
     }
 
@@ -37,5 +39,10 @@ class EventHandler
         session_start();
         $event = new Event($this->data['title'], $this->data['description'], $_SESSION['user']['id'], $this->data['date']);
         return $event->save($this->connection);
+    }
+
+    private function deleteEvent()
+    {
+        return Event::delete($this->connection, $this->data['id']);
     }
 }
