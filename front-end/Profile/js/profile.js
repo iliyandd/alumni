@@ -105,7 +105,7 @@ window.addEventListener("load", async () => {
   sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
   if (!sessionId) {
-    alert("You are not logged in");
+    alert("Не сте влезли в профила си!");
     window.location.href = "../login/login.html";
     return;
   }

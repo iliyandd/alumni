@@ -7,12 +7,12 @@ window.addEventListener("load", async () => {
   sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
   if (!sessionId) {
-    alert("You are not logged in");
+    alert("Не сте влезли в профила си!");
     window.location.href = "../login/login.html";
     return;
   }
   if (!sessionObj.inAlumni) {
-    alert("You are not in alumni club");
+    alert("Не сте в Алумни клуба!");
     window.location.href = "../profile/profile.html";
     return;
   }
