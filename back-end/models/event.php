@@ -8,6 +8,7 @@ class Event
         ' FROM event JOIN user on creator = user.id ORDER BY date';
     private static $GET_BY_ID_QUERY = 'SELECT event.id, title, description, creator, date, event.date_created, first_name, last_name' .
         ' FROM event JOIN user on creator = user.id WHERE event.id = :id ';
+    private static $DELETE_QUERY = 'DELETE FROM event WHERE id = :id';
 
     private $id;
     private $title;
@@ -88,6 +89,17 @@ class Event
             echo $err->getMessage();
         }
         return null;
+    }
+
+    public static function delete($connection, $id)
+    {
+        try {
+            $statement = $connection->prepare(Event::$DELETE_QUERY);
+            return $statement->execute(['id' => $id]) ? true : false;
+        } catch (PDOException $err) {
+            echo $err->getMessage();
+        }
+        return false;
     }
 
     public function getId()
