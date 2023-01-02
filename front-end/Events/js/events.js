@@ -5,12 +5,12 @@ window.addEventListener("load", async () => {
   sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
   if (!sessionId) {
-    alert("Не си влезнал в профила си!");
+    alert("Не сте влезли в профила си!");
     window.location.href = "../login/login.html";
     return;
   }
   if (!sessionObj.inAlumni) {
-    alert("Не си в алумни клуба!");
+    alert("Не сте в Алумни клуба!");
     window.location.href = "../profile/profile.html";
     return;
   }
@@ -40,13 +40,12 @@ const generateEvent = (data, userId) => {
         <h4>${data.firstName} ${data.lastName}</h4>
         <h4>${data.date}</h4>
     </div>
-    ${
-      userId == data.creator
-        ? `<div class="event_addition">
+    ${userId == data.creator
+      ? `<div class="event_addition">
     <a href="./event.html?id=${data.id}&edit=1" class="event_addition_edit"></a>
     <a href="./events.html?id=${data.id}&delete=1" class="event_addition_delete"></a>
     </div>`
-        : ""
+      : ""
     }
     <span class="event_id">${data.id}</span>`;
   parent.appendChild(event);
