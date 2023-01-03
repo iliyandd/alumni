@@ -25,7 +25,7 @@ window.addEventListener("load", async () => {
     //on click event to go to event page
     event.addEventListener("click", () => {
       const id = event.querySelector(".event_id").innerText;
-      window.location.href = `./event.html?id=${id}&edit=0"`;
+      window.location.href = `./event.html?id=${id}&edit=0`;
     });
   });
 
@@ -51,10 +51,6 @@ window.addEventListener("load", async () => {
           );
 
           if (response.ok) {
-            const data = await response.json();
-            if (data.status === "error") {
-              throw new Error(data.message);
-            }
             alert("Успешно изтрихте събитието!");
             window.location.reload();
           } else {
