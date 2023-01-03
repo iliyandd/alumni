@@ -9,6 +9,7 @@ class Event
     private static $GET_BY_ID_QUERY = 'SELECT event.id, title, description, creator, date, event.date_created, first_name, last_name' .
         ' FROM event JOIN user on creator = user.id WHERE event.id = :id ';
     private static $DELETE_QUERY = 'DELETE FROM event WHERE id = :id';
+    private static $EDIT_QUERY = 'UPDATE event SET title = :title, description = :description, date = :date where id = :id';
 
     private $id;
     private $title;
@@ -91,11 +92,24 @@ class Event
         return null;
     }
 
+    public function edit($connection)
+    {
+        try {
+            $statement = $connection->prepare(Event::$EDIT_QUERY);
+            $statement->execute(['title' => $this->title, 'description' => $this->description, 'date' => $this->date, 'id' => $this->id]);
+            return $statement->rowCount() > 0 ? true : false;
+        } catch (PDOException $err) {
+            echo $err->getMessage();
+        }
+        return false;
+    }
+
     public static function delete($connection, $id)
     {
         try {
             $statement = $connection->prepare(Event::$DELETE_QUERY);
-            return $statement->execute(['id' => $id]) ? true : false;
+            $statement->execute(['id' => $id]);
+            return $statement->rowCount() > 0 ? true : false;
         } catch (PDOException $err) {
             echo $err->getMessage();
         }

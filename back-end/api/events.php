@@ -81,6 +81,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             JSON_UNESCAPED_UNICODE
         ));
     }
+} elseif ($_SERVER["REQUEST_METHOD"] === 'PUT') {
+    $parameters = file_get_contents('php://input');
+    $data = json_decode($parameters, true);
+
+    try {
+        $db = new Database();
+        $connection = $db->getConnection();
+        $eventHandler = new EventHandler($connection, 'PUT', $data);
+
+        if ($eventHandler->action()) {
+            http_response_code(200);
+            exit(json_encode(
+                [
+                    'status' => 'success',
+                    'message' => 'Успешно редактирахте събитие!',
+                ],
+                JSON_UNESCAPED_UNICODE
+            ));
+        } else {
+            http_response_code(400);
+            exit(json_encode(
+                [
+                    'status' => 'error',
+                    'message' => 'Възникна грешка при редактирането на събитие!',
+                ],
+                JSON_UNESCAPED_UNICODE
+            ));
+        }
+    } catch (PDOException $err) {
+        echo $err->getMessage();
+        http_response_code(500);
+        exit(json_encode(
+            [
+                'status' => 'error',
+                'message' => 'Възникна грешка с базата!',
+            ],
+            JSON_UNESCAPED_UNICODE
+        ));
+    }
 } elseif ($_SERVER["REQUEST_METHOD"] === 'DELETE') {
     $parameters = file_get_contents('php://input');
     $data = json_decode($parameters, true);
