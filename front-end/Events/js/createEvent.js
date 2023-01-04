@@ -86,7 +86,7 @@ form.addEventListener("submit", async (e) => {
       }
     } catch (err) {
       [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-      alert(err.message + "Опитай да добавиш събитие отново по-късно.");
+      alert(err.message + "\nОпитай да добавиш събитие отново по-късно.");
     }
   } else {
     addErrorMessages(response);

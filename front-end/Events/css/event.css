@@ -1,0 +1,166 @@
+.container .event_addition_edit::after {
+  content: "\270e";
+  font-size: 30px;
+  color: #000;
+  transition: all 0.3s ease-in-out;
+}
+.container .event_addition_edit:hover::after {
+  content: "\270e";
+  font-size: 30px;
+  color: #898988;
+}
+.container .event_addition_view::after {
+  content: "\1F441";
+  font-size: 30px;
+  color: #000;
+  transition: all 0.3s ease-in-out;
+}
+.container .event_addition_view:hover::after {
+  content: "\1F441";
+  font-size: 30px;
+  color: #898988;
+}
+.container .event_addition_delete::after {
+  content: "\1F5D1";
+  font-size: 30px;
+  color: #000;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+.container .event_addition_delete:hover::after {
+  content: "\1F5D1";
+  font-size: 30px;
+  color: #898988;
+  cursor: pointer;
+}
+.container .event_addition_delete,
+.container .event_addition_edit,
+.container .event_addition_view {
+  border: 0;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+.container {
+  padding-bottom: 25px;
+}
+.container .event_header,  .edit_event_header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 3rem;
+}
+.container .event_header_title, .edit_event_header_title {
+  font-size: 1.5rem;
+  margin-top: 0;
+  color: #333;
+  text-align: center;
+  flex: 2;
+}
+
+.container .event_description p {
+  font-size: 1rem;
+  margin: 1rem 0;
+  color: #000;
+  text-align: justify;
+  text-indent: 1.5em;
+  line-height: 1.5;
+  letter-spacing: 0.05em;
+  word-spacing: 0.1em;
+}
+
+.container .event_additional {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 1em 0;
+  color: #02b5f3;
+  font-size: 1rem;
+}
+
+.hidden {
+  display: none;
+}
+
+.container .edit_event_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 50px;
+  font-size: 24px;
+}
+
+.container .edit_event_form {
+  margin: 10px 2%;
+  padding: 10px;
+}
+
+.container .edit_event_form .form_group {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.container .edit_event_form input {
+  width: 100%;
+  padding: 2px 10px;
+  height: 40px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.container .edit_event_form textarea {
+  width: 100%;
+  padding: 6px 10px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.container .edit_event_form label {
+  font-size: 14px;
+  margin-bottom: 5px;
+  padding-left: 5px;
+  display: block;
+  color: #000;
+}
+
+.container .edit_event_form .form_group .form_submit {
+  width: 20%;
+}
+
+.container .edit_event_form .form_group .form_submit #submit {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.container .edit_event_form .form_group .form_submit #submit:hover {
+  background-color: #3c8940;
+}
+
+.container .edit_event_form input:focus,
+.container .edit_event_form input:hover {
+  background-color: #f2f2f2;
+}
+
+@media (max-width: 1000px) {
+  .container .create_event_header {
+    font-size: 18px;
+  }
+}
+@media (max-width: 650px) {
+  .container .edit_event_form .form_group .form_submit {
+    width: 100%;
+  }
+}

@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async defer type="module" src="./js/event.js"></script>
+    <link rel="stylesheet" href="../GlobalStyle/errors.css" />
+    <link rel="stylesheet" href="../GlobalStyle/navigation.css" />
+    <link rel="stylesheet" href="../GlobalStyle/global.css" />
+    <link rel="stylesheet" href="./css/event.css" />
+    <title>Събития</title>
+</head>
+
+<body>
+    <header class="header_navigation">
+        <nav class="main_nav">
+            <div class="left_nav">
+                <img src="../../img/Alumni-Logo_New.svg" class="logo" alt="logo">
+            </div>
+            <div class="right_nav">
+                <ul class="main_nav_list">
+                    <li class="main_nav_item">
+                        <a class="main_nav_item_link" href="../homePage/homePage.html">Начало</a>
+                    </li>
+                    <li class="main_nav_item">
+                        <a class="main_nav_item_link" href="events.html">Събития</a>
+                    </li>
+                    <li class="main_nav_item">
+                        <a class="main_nav_item_link" href="#">Членове</a>
+                    </li>
+                    <li class="main_nav_item">
+                        <a class="main_nav_item_link" href="../profile/profile.html">Моят профил</a>
+                    </li>
+                    <li class="main_nav_item">
+                        <a class="main_nav_item_link" href="../../back-end/api/logout.php">Излизане</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="no_edit">
+                <div class="event_header">
+                    <div class="event_header_title">
+                        <h2 class="event_title"></h2>
+                    </div>
+                    <div class="event_more">
+                        <button class="event_addition_edit"></button>
+                        <button class="event_addition_delete"></button>
+                    </div>
+                </div>
+                <div class="event_description">
+                    <p class="event_description_text"></p>
+                </div>
+                <div class="event_additional">
+                    <div class="event_date">
+                        <h4 class="event_date_text"></h4>
+                    </div>
+                    <div class="event_creator">
+                        <h4 class="event_creator_text"></h4>
+                    </div>
+                </div>
+            </div>
+            <div class="edit hidden">
+                <div class="edit_event_header">
+                    <div class="edit_event_header_title">
+                        <h2 id="header_profile_name">Редактирай събитие<h2>
+                    </div>
+                    <div class="event_more">
+                        <button class="event_addition_view"></button>
+                        <button class="event_addition_delete"></button>
+                    </div>
+                </div>
+                <form class="edit_event_form">
+                    <div class="form_group">
+                        <div class="form_title">
+                            <label for="title">Заглавие</label>
+                            <input type="text" id="title" name="title" placeholder="Заглавие на събитието">
+                        </div>
+                    </div>
+                    <div class="form_group">
+                        <div class="form_description">
+                            <label for="description">Описание</label>
+                            <textarea name="description" id="description" class="not_resize" cols="30" rows="10"
+                                placeholder="Описание на събитието"></textarea>
+                        </div>
+                    </div>
+                    <div class="form_group">
+                        <div class="form_date">
+                            <label for="date">Дата на събитието</label>
+                            <input type="date" id="date" name="date" placeholder="Ден/Месец/Година">
+                        </div>
+                    </div>
+                    <div class="form_group">
+                        <div class="form_submit">
+                            <input type="submit" value="Редактирай" id="submit">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </main>
+</body>
+
+</html>

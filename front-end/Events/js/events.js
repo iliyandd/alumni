@@ -25,7 +25,41 @@ window.addEventListener("load", async () => {
     //on click event to go to event page
     event.addEventListener("click", () => {
       const id = event.querySelector(".event_id").innerText;
-      window.location.href = `./event.html?id=${id}&edit=0"`;
+      window.location.href = `./event.html?id=${id}&edit=0`;
+    });
+  });
+
+  const deleteButtons = document.querySelectorAll(".event_addition_delete");
+  deleteButtons.forEach((button) => {
+    button.addEventListener("click", async (e) => {
+      e.stopPropagation();
+      const isConfirmed =
+        confirm("Сигурни ли сте, че искате да изтриете събитието?");
+      if (isConfirmed) {
+        const id =
+          e.target.parentNode.parentNode.querySelector(".event_id").innerText;
+        try {
+          const response = await fetch(
+            "../../../../alumni/back-end/api/events.php",
+            {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({ id }),
+            }
+          );
+
+          if (response.ok) {
+            alert("Успешно изтрихте събитието!");
+            window.location.reload();
+          } else {
+            throw new Error("Неуспешно изтриване на събитието!\n");
+          }
+        } catch (err) {
+          alert(err.message + "\nОпитай отново по-късно.");
+        }
+      }
     });
   });
 });
@@ -40,12 +74,13 @@ const generateEvent = (data, userId) => {
         <h4>${data.firstName} ${data.lastName}</h4>
         <h4>${data.date}</h4>
     </div>
-    ${userId == data.creator
-      ? `<div class="event_addition">
+    ${
+      userId == data.creator
+        ? `<div class="event_addition">
     <a href="./event.html?id=${data.id}&edit=1" class="event_addition_edit"></a>
-    <a href="./events.html?id=${data.id}&delete=1" class="event_addition_delete"></a>
+    <button class="event_addition_delete"></button>
     </div>`
-      : ""
+        : ""
     }
     <span class="event_id">${data.id}</span>`;
   parent.appendChild(event);
@@ -71,4 +106,3 @@ const getEvents = async () => {
     alert(err.message + "Опитай отново по-късно.");
   }
 };
-
