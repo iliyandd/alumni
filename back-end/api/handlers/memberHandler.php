@@ -7,7 +7,7 @@ class MemberHandler
     private $GET_MEMBERS_QUERY = 'SELECT id, username, email, first_name firstName, last_name lastName, fn, speciality, in_alumni inAlumni, date_created dateCreated' .
         ' FROM user WHERE in_alumni = 1';
     private $GET_MEMBER_QUERY = 'SELECT id, username, email, first_name firstName, last_name lastName, fn, speciality, in_alumni inAlumni, date_created dateCreated' .
-        ' FROM user WHERE in_alumni = 1 and id = :id';
+        ' FROM user WHERE in_alumni = 1 and username = :username';
     private $SET_MEMBERSHIP_QUERY = 'UPDATE user set in_alumni = :inAlumni where username = :username';
 
     private $connection;
@@ -21,13 +21,13 @@ class MemberHandler
         $this->data = $data;
     }
 
-    public function action($idQueryParameter = null)
+    public function action($usernameQueryParameter = null)
     {
         if ($this->method === 'GET') {
-            if (!$idQueryParameter) {
+            if (!$usernameQueryParameter) {
                 $this->listMembers();
             }
-            $this->getMember($idQueryParameter);
+            $this->getMember($usernameQueryParameter);
         } elseif ($this->method === 'POST') {
             $this->setMembership();
         }
@@ -49,10 +49,10 @@ class MemberHandler
         ));
     }
 
-    private function getMember($id)
+    private function getMember($username)
     {
         $statement = $this->connection->prepare($this->GET_MEMBER_QUERY);
-        $statement->execute(['id' => $id]);
+        $statement->execute(['username' => $username]);
         $userData = $statement->fetch(PDO::FETCH_ASSOC);
 
         if (!$userData) {
