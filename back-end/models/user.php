@@ -8,7 +8,7 @@ class User
     private $CHECK_QUERY = 'SELECT id FROM user WHERE username = :username or email = :email or fn = :fn';
 
     private static $GET_BY_ID_QUERY = 'SELECT * FROM user WHERE id = :id';
-    private static $GET_BY_EMAIL_QUERY = 'SELECT * FROM user WHERE email = :email';
+    private static $GET_BY_USERNAME_QUERY = 'SELECT * FROM user WHERE username = :username';
     private $id;
     private $username;
     private $email;
@@ -213,10 +213,10 @@ class User
         return null;
     }
 
-    public static function getByEmail($connection, $email)
+    public static function getByUsername($connection, $username)
     {
-        $statement = $connection->prepare(User::$GET_BY_EMAIL_QUERY);
-        $statement->execute(['email' => $email]);
+        $statement = $connection->prepare(User::$GET_BY_USERNAME_QUERY);
+        $statement->execute(['username' => $username]);
         $userData = $statement->fetch(PDO::FETCH_OBJ);
 
         if (!$userData) {

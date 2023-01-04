@@ -8,7 +8,7 @@ class MemberHandler
         ' FROM user WHERE in_alumni = 1';
     private $GET_MEMBER_QUERY = 'SELECT id, username, email, first_name firstName, last_name lastName, fn, speciality, in_alumni inAlumni, date_created dateCreated' .
         ' FROM user WHERE in_alumni = 1 and id = :id';
-    private $SET_MEMBERSHIP_QUERY = 'UPDATE user set in_alumni = :inAlumni where id = :id';
+    private $SET_MEMBERSHIP_QUERY = 'UPDATE user set in_alumni = :inAlumni where username = :username';
 
     private $connection;
     private $method;
@@ -79,7 +79,7 @@ class MemberHandler
 
     private function setMembership()
     {
-        if (!User::getById($this->connection, $this->data['id'])) {
+        if (!User::getByUsername($this->connection, $this->data['username'])) {
             http_response_code(404);
             exit(json_encode(
                 [
@@ -91,7 +91,7 @@ class MemberHandler
         }
 
         $statement = $this->connection->prepare($this->SET_MEMBERSHIP_QUERY);
-        $statement->execute(['id' => $this->data['id'], 'inAlumni' => $this->data['inAlumni']]);
+        $statement->execute(['username' => $this->data['username'], 'inAlumni' => $this->data['inAlumni']]);
 
         $state = $this->data['inAlumni'] == 1 ? 'добавихте' : 'премахнахте';
         http_response_code(200);
