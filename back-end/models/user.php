@@ -2,7 +2,7 @@
 class User
 {
     private $SAVE_QUERY =
-        'INSERT INTO user (username, email, password, first_name, last_name, fn, speciality, in_alumni)' .
+    'INSERT INTO user (username, email, password, first_name, last_name, fn, speciality, in_alumni)' .
         ' VALUES (:username, :email, :password, :firstName, :lastName, :fn, :speciality, :inAlumni)';
 
     private $CHECK_QUERY = 'SELECT id FROM user WHERE username = :username or email = :email or fn = :fn';
@@ -188,28 +188,29 @@ class User
         try {
             $statement = $connection->prepare(User::$GET_BY_ID_QUERY);
             $statement->execute(['id' => $id]);
-            $userData = $statement->fetch(PDO::FETCH_OBJ);
 
+            $userData = $statement->fetch(PDO::FETCH_OBJ);
             if (!$userData) {
-                throw new Exception("User with id $id not found");
+                return null;
             }
-        } catch (PDOException $e) {
-            echo $e->getMessage();
-            return null;
+
+            return new User(
+                $userData->username,
+                $userData->email,
+                $userData->password,
+                $userData->first_name,
+                $userData->last_name,
+                $userData->fn,
+                $userData->speciality,
+                $userData->in_alumni,
+                $userData->id,
+                $userData->date_created
+            );
+        } catch (PDOException $err) {
+            echo $err->getMessage();
         }
-        $user = new User(
-            $userData->username,
-            $userData->email,
-            $userData->password,
-            $userData->first_name,
-            $userData->last_name,
-            $userData->fn,
-            $userData->speciality,
-            $userData->in_alumni,
-            $userData->id,
-            $userData->date_created
-        );
-        return $user;
+
+        return null;
     }
 
     public static function getByEmail($connection, $email)
@@ -245,8 +246,7 @@ class User
             'fn' => $this->getFn(),
         ]);
         return $hasId
-            ? $statement->rowCount() > 0 &&
-                    $statement->fetch(PDO::FETCH_OBJ)->id != $this->getId()
+            ? $statement->rowCount() > 0 && $statement->fetch(PDO::FETCH_OBJ)->id != $this->getId()
             : $statement->rowCount() > 0;
     }
 }
