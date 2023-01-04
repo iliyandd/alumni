@@ -1,0 +1,24 @@
+.container {
+  margin: 0 auto;
+  margin-top: 50px;
+  max-width: 1300px;
+  padding: 25px;
+  padding-bottom: 0;
+  background: aliceblue;
+  width: 80%;
+}
+
+.not_resize {
+  resize: none;
+}
+
+@media (max-width: 1000px) {
+  .container {
+    width: 90%;
+  }
+}
+@media (max-width: 650px) {
+  .container {
+    width: 100%;
+  }
+}

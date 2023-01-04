@@ -1,13 +1,18 @@
 <!DOCTYPE html>
 <html lang="bg">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async defer src="./js/createEvent.js" type="module"></script>
+    <link rel="stylesheet" href="./css/create-event.css" />
     <link rel="stylesheet" href="../GlobalStyle/errors.css" />
     <link rel="stylesheet" href="../GlobalStyle/navigation.css" />
+    <link rel="stylesheet" href="../GlobalStyle/global.css" />
     <title>Създай събитие</title>
 </head>
+
 <body>
     <header class="header_navigation">
         <nav class="main_nav">
@@ -38,5 +43,41 @@
             </div>
         </nav>
     </header>
+    <main>
+        <div class="container">
+            <div class="create_event_header">
+                <div class="create_event_header_title">
+                    <h2 id="header_profile_name">Създай събитие<h2>
+                </div>
+            </div>
+            <form class="create_event_form">
+                <div class="form_group">
+                    <div class="form_title">
+                        <label for="title">Заглавие</label>
+                        <input type="text" id="title" name="title" placeholder="Заглавие на събитието">
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div class="form_description">
+                        <label for="description">Описание</label>
+                        <textarea name="description" id="description" class="not_resize" cols="30" rows="10"
+                            placeholder="Описание на събитието"></textarea>
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div class="form_date">
+                        <label for="date">Дата на събитието</label>
+                        <input type="date" id="date" name="date" placeholder="Ден/Месец/Година">
+                    </div>
+                </div>
+                <div class="form_group">
+                    <div class="form_submit">
+                        <input type="submit" value="Създай" id="submit">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </main>
 </body>
+
 </html>

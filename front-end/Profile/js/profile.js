@@ -105,7 +105,7 @@ window.addEventListener("load", async () => {
   sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
   if (!sessionId) {
-    alert("You are not logged in");
+    alert("Не сте влезли в профила си!");
     window.location.href = "../login/login.html";
     return;
   }
@@ -164,7 +164,7 @@ form.addEventListener("submit", async (e) => {
       fn: fn.value,
       speciality: speciality.value,
       inAlumni,
-      id
+      id,
     };
     console.log(data);
 
@@ -190,10 +190,13 @@ form.addEventListener("submit", async (e) => {
         //reload
         window.location.reload();
       }
+      else {
+        throw new Error("Проблем със сървъра.\n");
+      }
     } catch (err) {
       console.log(err);
       [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-      alert(err.message + "\Опитай да редактираш профила си отново по-късно.");
+      alert(err.message + "Опитай да редактираш профила си отново по-късно.");
     }
   } else {
     addErrorMessages(response);
