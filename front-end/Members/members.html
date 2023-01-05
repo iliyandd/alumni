@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="bg">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script async defer type="module" src="./js/members.js"></script>
+    <link rel="stylesheet" href="../GlobalStyle/errors.css" />
+    <link rel="stylesheet" href="../GlobalStyle/navigation.css" />
+    <link rel="stylesheet" href="../GlobalStyle/global.css" />
+    <link rel="stylesheet" href="./css/members.css" />
+    <title>Членове</title>
+</head>
+
+<body>
+    <header class="header_navigation">
+        <nav class="main_nav">
+            <div class="left_nav">
+                <img src="../../img/Alumni-Logo_New.svg" class="logo" alt="logo">
+            </div>
+            <div class="right_nav">
+                <ul class="main_nav_list">
+                    <li class="main_nav_item">
+                        <a class="main_nav_item_link" href="../homePage/homePage.html">Начало</a>
+                    </li>
+                    <li class="main_nav_item">
+                        <a class="main_nav_item_link active" href="../events/events.html">Събития</a>
+                    </li>
+                    <li class="main_nav_item">
+                        <a class="main_nav_item_link" href="members.html">Членове</a>
+                    </li>
+                    <li class="main_nav_item">
+                        <a class="main_nav_item_link" href="../profile/profile.html">Моят профил</a>
+                    </li>
+                    <li class="main_nav_item">
+                        <a class="main_nav_item_link" href="../../back-end/api/logout.php">Излизане</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <div class="container">
+            <div class="members_header">
+                <h2>Членове</h2>
+            </div>
+            <div class="members_search">
+                <div class="members_search_input">
+                    <input type="text" id="member_value" placeholder="Въведи потребителко име" />
+                    <button>Търсене на член</button>
+                    <button class="add_member_btn">Добави приятел</button>
+                </div>
+            </div>
+            <div class="members_list">
+                <div class="members_list_title">
+                    <h3>Всички членове:</h3>
+                </div>
+                <ul class="list_members">
+                    <li class="list_members_item">
+                        <div class="list_members_item_info">
+                            <div class="list_members_item_info_name">
+                                <h4>Иван Иванов</h4>
+                            </div>
+                            <div class="list_members_item_info_email">
+                                <h4>Email:</h4>
+                            </div>
+                            <div class="list_members_item_info_username">
+                                <h4>Username:</h4>
+                            </div>
+                        </div>
+                        <div class="list_members_item_btn">
+                            <button class="list_members_item_btn_remove"></button>
+                        </div>
+                    </li>
+                    <li class="list_members_item">
+                        <div class="list_members_item_info">
+                            <div class="list_members_item_info_name">
+                                <h4>Иван Иванов</h4>
+                            </div>
+                            <div class="list_members_item_info_email">
+                                <h4>Email:</h4>
+                            </div>
+                            <div class="list_members_item_info_username">
+                                <h4>Username:</h4>
+                            </div>
+                        </div>
+                        <div class="list_members_item_btn">
+                            <button class="list_members_item_btn_remove"></button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </main>
+</body>
+
+</html>

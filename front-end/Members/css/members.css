@@ -1,0 +1,134 @@
+.container {
+  padding-bottom: 25px;
+}
+
+.container .members_header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 25px;
+  font-size: 24px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #ccc;
+}
+
+.container .members_search {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 25px;
+}
+
+.container .members_search_input {
+  margin: 10px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+}
+
+.container .members_search_input input {
+  width: 70%;
+  padding: 2px 10px;
+  height: 40px;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.container .members_search_input button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.container .members_search_input input:focus,
+.container .members_search_input input:hover {
+  background-color: #f2f2f2;
+}
+
+.container .members_search_input button:hover {
+    background-color: #3c8940;
+}
+
+.container .members_list_title {
+    font-size: 20px;
+    margin-bottom: 10px;
+    margin-top: 0;
+    color: #333;
+    text-align: center;
+}
+
+.container .list_members {
+    border-radius: 5px;
+    padding: 10px 0px;
+    list-style-type: none;
+}
+
+.container .list_members .list_members_item {
+    border-radius: 5px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    border-bottom: 1px solid #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 10px 0;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+
+.container .list_members .list_members_item .list_members_item_btn_remove {
+    border: 0;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+.container .list_members .list_members_item .list_members_item_btn_remove::after {
+    content: "\2573";
+    color: #f44336;
+    font-size: 26px;
+    font-weight: bold;
+}
+.container .list_members .list_members_item .list_members_item_btn_remove:hover::after {
+    content: "\2573";
+    color: #7c0800;
+    font-size: 26px;
+    font-weight: bold;
+}
+
+@media (max-width: 1000px) {
+  .container .members_header {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container .members_search_input {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+  }
+  .container .members_search_input input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .container .members_search_input button {
+    width: 100%;
+  }
+}
