@@ -99,6 +99,7 @@ const loadDataIntoPage = (profile) => {
   }
 };
 
+const form = document.querySelector(".edit_profile_form");
 window.addEventListener("load", async () => {
   let sessionId = null;
   const sessionObj = await getSession();
@@ -113,10 +114,16 @@ window.addEventListener("load", async () => {
   document.cookie = `sessionId=${sessionId}`;
 
   console.log(sessionObj);
-  loadDataIntoPage(sessionObj);
+  const loadingSpinner = document.querySelector(".loading_spinner");
+  form.style.display = "none";
+  loadingSpinner.style.display = "flex";
+  setTimeout(() => {
+    loadDataIntoPage(sessionObj);
+    loadingSpinner.style.display = "none";
+    form.style.display = "block";
+  }, 200); // here we don't make API call so need from little timeout (200 ms)
 });
 
-const form = document.querySelector(".edit_profile_form");
 form.addEventListener("submit", async (e) => {
   e.preventDefault();
   const username = document.querySelector("#username");
@@ -186,7 +193,7 @@ form.addEventListener("submit", async (e) => {
         }
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
         console.log(updatedProfile);
-        alert("Профилът е редактиран успешно!");
+        // alert("Профилът е редактиран успешно!");
         //reload
         window.location.reload();
       }

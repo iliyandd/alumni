@@ -8,6 +8,10 @@
   width: 80%;
 }
 
+.not_visible {
+  display: none;
+}
+
 .not_resize {
   resize: none;
 }
@@ -17,6 +21,7 @@
     width: 90%;
   }
 }
+
 @media (max-width: 650px) {
   .container {
     width: 100%;
