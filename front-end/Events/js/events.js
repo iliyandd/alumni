@@ -15,9 +15,16 @@ window.addEventListener("load", async () => {
     return;
   }
 
+  const loadingSpinner = document.querySelector(".loading_spinner");
+  loadingSpinner.style.display = "flex";
+
   const data = await getEvents();
-  data.forEach((event) => {
-    generateEvent(event, sessionId);
+
+  setTimeout(() => {
+    loadingSpinner.style.display = "none";
+    data.forEach((event) => {
+      generateEvent(event, sessionId);
+    });
   });
 
   const events = document.querySelectorAll(".event");
@@ -74,13 +81,12 @@ const generateEvent = (data, userId) => {
         <h4>${data.firstName} ${data.lastName}</h4>
         <h4>${data.date}</h4>
     </div>
-    ${
-      userId == data.creator
-        ? `<div class="event_addition">
+    ${userId == data.creator
+      ? `<div class="event_addition">
     <a href="./event.html?id=${data.id}&edit=1" class="event_addition_edit"></a>
     <button class="event_addition_delete"></button>
     </div>`
-        : ""
+      : ""
     }
     <span class="event_id">${data.id}</span>`;
   parent.appendChild(event);
