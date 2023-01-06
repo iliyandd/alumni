@@ -84,25 +84,6 @@ body {
   background-color: #f2f2f2;
 }
 
-.reference_to_register {
-  color: black;
-  text-decoration: none;
-  font-size: 18px;
-  text-align: center;
-  padding: 10px 0;
-}
-
-.reference_to_register a {
-  color: #00ff0a;
-  text-decoration: none;
-  transition: all 0.3s ease-in-out;
-}
-
-.reference_to_register a:hover {
-  text-decoration: underline;
-  color: #8bff2c;
-}
-
 .transbox {
   position: relative;
   padding-bottom: 15px;
