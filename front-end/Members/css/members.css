@@ -110,7 +110,9 @@
     font-size: 26px;
     font-weight: bold;
 }
-
+.member_id {
+    display: none;
+}
 @media (max-width: 1000px) {
   .container .members_header {
     font-size: 18px;
