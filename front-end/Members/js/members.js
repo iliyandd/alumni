@@ -14,7 +14,7 @@ window.addEventListener("load", async () => {
     window.location.href = "../profile/profile.html";
     return;
   }
-
+  document.cookie = `sessionId=${sessionId}`;
   const loadingSpinner = document.querySelector(".loading_spinner");
   loadingSpinner.style.display = "flex";
 
@@ -71,6 +71,10 @@ window.addEventListener("load", async () => {
       });
     }
   });
+  const searchMemberBtn = document.querySelector(".search_member_btn");
+  console.log(searchMemberBtn);
+  const searchUsersBtn = document.querySelector(".add_member_btn");
+  searchMemberBtn.addEventListener("click", searchMember);
 });
 
 const getMembers = async () => {
@@ -97,8 +101,64 @@ const getMembers = async () => {
   }
 };
 
-const generateMember = (data, userId) => {
-  if (data.id == userId) return;
+const searchMember = async (e) => {
+  e.preventDefault();
+  const searchInput = document.querySelector("#member_value");
+  const searchValue = searchInput.value;
+  const loadingSpinner = document.querySelector(".loading_spinner");
+  const parent = document.querySelector(".list_members");
+  parent.innerHTML = "";
+  loadingSpinner.style.display = "flex";
+  let data = [];
+  if (searchValue == "") {
+    data = await getMembers();
+  } else {
+    data = await getMember(searchValue, 1);
+  }
+  setTimeout(() => {
+    loadingSpinner.style.display = "none";
+    if (!data) {
+        return;
+    } else {
+      const userId = document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("sessionId"))
+        .split("=")[1];
+      data.forEach((member) => {
+        generateMember(member, userId);
+      });
+    }
+  });
+};
+
+const getMember = async (searchValue, inAlumni) => {
+  try {
+    const response = await fetch(
+      `../../../../alumni/back-end/api/members.php?username=${searchValue}&isMember=${inAlumni}`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    if (response.ok) {
+      const data = await response.json();
+    
+      return data.result;
+    } else {
+      document.querySelector(".members_title").innerText =
+        "Не съществува такъв член в клуба!";
+    //   throw new Error("Неуспешно зареждане на членовете!\n");
+    }
+  } catch (err) {
+    alert(err.message + "Опитай отново по-късно.");
+  }
+};
+
+const generateMember = (data, userId = null) => {
+  if (userId != null && data.id == userId) return;
   const parent = document.querySelector(".list_members");
   const event = document.createElement("li");
   event.classList.add("list_members_item");
