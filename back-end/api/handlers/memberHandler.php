@@ -6,6 +6,8 @@ class MemberHandler
 {
     private $GET_MEMBERS_QUERY = 'SELECT id, username, email, first_name firstName, last_name lastName, fn, speciality, in_alumni inAlumni, date_created dateCreated' .
         ' FROM user WHERE in_alumni = 1';
+    private $GET_USERS_QUERY = 'SELECT id, username, email, first_name firstName, last_name lastName, fn, speciality, in_alumni inAlumni, date_created dateCreated' .
+        ' FROM user WHERE in_alumni = 0';
     private $GET_MEMBER_QUERY = 'SELECT id, username, email, first_name firstName, last_name lastName, fn, speciality, in_alumni inAlumni, date_created dateCreated' .
         " FROM user WHERE in_alumni = :isMember and username like :username";
     private $SET_MEMBERSHIP_QUERY = 'UPDATE user set in_alumni = :inAlumni where username = :username';
@@ -24,8 +26,11 @@ class MemberHandler
     public function action($usernameQueryParameter = null, $isMemberQueryParameter = null)
     {
         if ($this->method === 'GET') {
-            if (!$usernameQueryParameter || $isMemberQueryParameter == null) {
+            if (!$usernameQueryParameter && $isMemberQueryParameter == null) {
                 $this->listMembers();
+            }
+            elseif (!$usernameQueryParameter && $isMemberQueryParameter != null){
+                $this->listUsers();
             }
             $this->getUser($usernameQueryParameter, $isMemberQueryParameter);
         } elseif ($this->method === 'PUT') {
@@ -44,6 +49,34 @@ class MemberHandler
                 'status' => 'success',
                 'message' => 'Успешно извличане на членовете!',
                 'result' => $statement->fetchAll(PDO::FETCH_ASSOC)
+            ],
+            JSON_UNESCAPED_UNICODE
+        ));
+    }
+    private function listUsers()
+    {
+        $statement = $this->connection->prepare($this->GET_USERS_QUERY);
+        $statement->execute();
+
+     $userData = $statement->fetchAll(PDO::FETCH_ASSOC);
+
+        if (!$userData) {
+            http_response_code(404);
+            exit(json_encode(
+                [
+                    'status' => 'error',
+                    'message' => 'Не успешно извличане на членове!',
+                ],
+                JSON_UNESCAPED_UNICODE
+            ));
+        }
+
+        http_response_code(200);
+        exit(json_encode(
+            [
+                'status' => 'success',
+                'message' => 'Успешно извличане на членовете!',
+                'result' => $userData,
             ],
             JSON_UNESCAPED_UNICODE
         ));

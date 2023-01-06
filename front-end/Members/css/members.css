@@ -89,7 +89,8 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 
-.container .list_members .list_members_item .list_members_item_btn_remove {
+.container .list_members .list_members_item .list_members_item_btn_remove,
+.container .list_members .list_members_item .list_members_item_btn_add  {
     border: 0;
     background: none;
     cursor: pointer;
@@ -110,7 +111,19 @@
     font-size: 26px;
     font-weight: bold;
 }
-.member_id {
+.container .list_members .list_members_item .list_members_item_btn_add::after {
+    content: "\2714";
+    color: #4caf50;
+    font-size: 30px;
+    font-weight: bold;
+}
+.container .list_members .list_members_item .list_members_item_btn_add:hover::after {
+    content: "\2714";
+    color: #3c8940;
+    font-size: 30px;
+    font-weight: bold;
+}
+.member_id, .in_alumni {
     display: none;
 }
 @media (max-width: 1000px) {
