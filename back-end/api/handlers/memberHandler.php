@@ -7,7 +7,7 @@ class MemberHandler
     private $GET_MEMBERS_QUERY = 'SELECT id, username, email, first_name firstName, last_name lastName, fn, speciality, in_alumni inAlumni, date_created dateCreated' .
         ' FROM user WHERE in_alumni = 1';
     private $GET_MEMBER_QUERY = 'SELECT id, username, email, first_name firstName, last_name lastName, fn, speciality, in_alumni inAlumni, date_created dateCreated' .
-        ' FROM user WHERE in_alumni = 1 and username = :username';
+        ' FROM user WHERE in_alumni = :isMember and username = :username';
     private $SET_MEMBERSHIP_QUERY = 'UPDATE user set in_alumni = :inAlumni where username = :username';
 
     private $connection;
@@ -21,13 +21,13 @@ class MemberHandler
         $this->data = $data;
     }
 
-    public function action($usernameQueryParameter = null)
+    public function action($usernameQueryParameter = null, $isMemberQueryParameter = null)
     {
         if ($this->method === 'GET') {
-            if (!$usernameQueryParameter) {
+            if (!$usernameQueryParameter || $isMemberQueryParameter == null) {
                 $this->listMembers();
             }
-            $this->getMember($usernameQueryParameter);
+            $this->getUser($usernameQueryParameter, $isMemberQueryParameter);
         } elseif ($this->method === 'POST') {
             $this->setMembership();
         }
@@ -49,10 +49,10 @@ class MemberHandler
         ));
     }
 
-    private function getMember($username)
+    private function getUser($username, $isMember)
     {
         $statement = $this->connection->prepare($this->GET_MEMBER_QUERY);
-        $statement->execute(['username' => $username]);
+        $statement->execute(['username' => $username, 'isMember' => $isMember]);
         $userData = $statement->fetch(PDO::FETCH_ASSOC);
 
         if (!$userData) {
@@ -60,7 +60,7 @@ class MemberHandler
             exit(json_encode(
                 [
                     'status' => 'error',
-                    'message' => 'Не съществува такъв член на групата!',
+                    'message' => 'Не съществува такъв потребител!',
                 ],
                 JSON_UNESCAPED_UNICODE
             ));
@@ -70,7 +70,7 @@ class MemberHandler
         exit(json_encode(
             [
                 'status' => 'success',
-                'message' => 'Успешно извличане на члена на групата!',
+                'message' => 'Успешно извличане на потребителя!',
                 'result' => $userData,
             ],
             JSON_UNESCAPED_UNICODE

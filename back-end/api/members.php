@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         $connection = $db->getConnection();
         $memberHandler = new MemberHandler($connection, 'GET');
 
-        $memberHandler->action(isset($_GET['username']) ? $_GET['username'] : null);
+        $memberHandler->action(isset($_GET['username']) ? $_GET['username'] : null, isset($_GET['isMember']) ? $_GET['isMember'] : null);
     } catch (PDOException $err) {
         echo $err->getMessage();
         http_response_code(500);
