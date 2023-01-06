@@ -19,7 +19,7 @@ window.addEventListener("load", async () => {
   loadingSpinner.style.display = "flex";
 
   const data = await getMembers();
-
+  let membersBasicData = {};
   setTimeout(() => {
     loadingSpinner.style.display = "none";
     if (data.length <= 0) {
@@ -28,51 +28,47 @@ window.addEventListener("load", async () => {
     } else {
       data.forEach((member) => {
         generateMember(member, sessionId);
+        membersBasicData[member.id] = member.username;
       });
 
       const removeMemberBtn = document.querySelectorAll(
         ".list_members_item_btn_remove"
       );
 
-    //   removeMemberBtn.forEach((btn) => {
-    //     btn.addEventListener("click", async (e) => {
-    //       const isConfirmed = confirm(
-    //         "Сигурни ли сте, че искате да премахнете члена от групата?"
-    //       );
-    //       if (isConfirmed) {
-    //         const id =
-    //           e.target.parentNode.parentNode.querySelector(
-    //             ".member_id"
-    //           ).innerText;
-    //         try {
-    //           const response = await fetch(
-    //             "../../../../alumni/back-end/api/members.php",
-    //             {
-    //               method: "DELETE",
-    //               headers: {
-    //                 "Content-Type": "application/json",
-    //               },
-    //               body: JSON.stringify({ id }),
-    //             }
-    //           );
+      removeMemberBtn.forEach((btn) => {
+        btn.addEventListener("click", async (e) => {
+          const isConfirmed = confirm(
+            "Сигурни ли сте, че искате да премахнете члена от групата?"
+          );
+          if (isConfirmed) {
+            const id =
+              e.target.parentNode.parentNode.querySelector(
+                ".member_id"
+              ).innerText;
+            try {
+              const response = await fetch(
+                "../../../../alumni/back-end/api/members.php",
+                {
+                  method: "PUT",
+                  headers: {
+                    "Content-Type": "application/json",
+                  },
+                  body: JSON.stringify({ id, username: membersBasicData[id] }),
+                }
+              );
 
-    //           if (response.ok) {
-    //             const data = await response.json();
-    //             if (data.success) {
-    //               alert("Членът е изтрит успешно!");
-    //               window.location.reload();
-    //             } else {
-    //               throw new Error("Неуспешно изтриване на член!\n");
-    //             }
-    //           } else {
-    //             throw new Error("Неуспешно изтриване на член!\n");
-    //           }
-    //         } catch (err) {
-    //           alert(err.message + "Опитай отново по-късно.");
-    //         }
-    //       }
-    //     });
-    //   });
+              if (response.ok) {
+                alert("Членът е премахнат от групата!");
+                window.location.reload();
+              } else {
+                throw new Error("Неуспешно изтриване на член!\n");
+              }
+            } catch (err) {
+              alert(err.message + "Опитай отново по-късно.");
+            }
+          }
+        });
+      });
     }
   });
 });

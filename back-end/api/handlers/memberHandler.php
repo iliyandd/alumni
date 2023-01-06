@@ -28,7 +28,7 @@ class MemberHandler
                 $this->listMembers();
             }
             $this->getUser($usernameQueryParameter, $isMemberQueryParameter);
-        } elseif ($this->method === 'POST') {
+        } elseif ($this->method === 'PUT') {
             $this->setMembership();
         }
     }
