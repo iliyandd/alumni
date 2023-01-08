@@ -9,7 +9,7 @@ class MemberHandler
     private $GET_USERS_QUERY = 'SELECT id, username, email, first_name firstName, last_name lastName, fn, speciality, in_alumni inAlumni, date_created dateCreated' .
         ' FROM user WHERE in_alumni = 0';
     private $GET_MEMBER_QUERY = 'SELECT id, username, email, first_name firstName, last_name lastName, fn, speciality, in_alumni inAlumni, date_created dateCreated' .
-        " FROM user WHERE in_alumni = :isMember and username like :username";
+        ' FROM user WHERE in_alumni = :isMember and username like :username';
     private $SET_MEMBERSHIP_QUERY = 'UPDATE user set in_alumni = :inAlumni where username = :username';
 
     private $connection;
@@ -28,8 +28,7 @@ class MemberHandler
         if ($this->method === 'GET') {
             if (!$usernameQueryParameter && $isMemberQueryParameter == null) {
                 $this->listMembers();
-            }
-            elseif (!$usernameQueryParameter && $isMemberQueryParameter != null){
+            } elseif (!$usernameQueryParameter && $isMemberQueryParameter != null) {
                 $this->listUsers();
             }
             $this->getUser($usernameQueryParameter, $isMemberQueryParameter);
@@ -58,7 +57,7 @@ class MemberHandler
         $statement = $this->connection->prepare($this->GET_USERS_QUERY);
         $statement->execute();
 
-     $userData = $statement->fetchAll(PDO::FETCH_ASSOC);
+        $userData = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         if (!$userData) {
             http_response_code(404);
@@ -85,7 +84,7 @@ class MemberHandler
     private function getUser($username, $isMember)
     {
         $statement = $this->connection->prepare($this->GET_MEMBER_QUERY);
-        $statement->execute(['username' => '%'.$username.'%', 'isMember' => $isMember]);
+        $statement->execute(['username' => "%{$username}%", 'isMember' => $isMember]);
         $userData = $statement->fetchAll(PDO::FETCH_ASSOC);
 
         if (!$userData) {
