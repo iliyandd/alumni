@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="bg">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script async defer type="module" src="./js/events.js"></script>
+    <script async defer type="module" src="./js/members.js"></script>
     <link rel="stylesheet" href="../GlobalStyle/errors.css" />
     <link rel="stylesheet" href="../GlobalStyle/navigation.css" />
     <link rel="stylesheet" href="../GlobalStyle/loadingSpinner.css" />
     <link rel="stylesheet" href="../GlobalStyle/global.css" />
-    <link rel="stylesheet" href="./css/events.css" />
-    <title>Събития</title>
+    <link rel="stylesheet" href="./css/members.css" />
+    <title>Членове</title>
 </head>
+
 <body>
     <header class="header_navigation">
         <nav class="main_nav">
@@ -24,10 +26,10 @@
                         <a class="main_nav_item_link" href="../homePage/homePage.html">Начало</a>
                     </li>
                     <li class="main_nav_item">
-                        <a class="main_nav_item_link active" href="events.html">Събития</a>
+                        <a class="main_nav_item_link" href="../events/events.html">Събития</a>
                     </li>
                     <li class="main_nav_item">
-                        <a class="main_nav_item_link" href="../members/members.html">Членове</a>
+                        <a class="main_nav_item_link active" href="members.html">Членове</a>
                     </li>
                     <li class="main_nav_item">
                         <a class="main_nav_item_link" href="../profile/profile.html">Моят профил</a>
@@ -41,18 +43,26 @@
     </header>
     <main>
         <div class="container">
-            <div class="events_header">
-                <div class="events_header_title">
-                    <h2>Събития</h2>
-                </div>
-                <div class="events_header_create_event">
-                    <a href="./createEvent.html" class="events_header_create_event_btn">Създай събитие</a>
+            <div class="members_header">
+                <h2>Членове</h2>
+            </div>
+            <div class="members_search">
+                <div class="members_search_input">
+                    <input type="text" id="member_value" placeholder="Въведи потребителко име" />
+                    <button class="search_member_btn">Намери членове</button>
+                    <button class="add_member_btn">Добави приятел</button>
                 </div>
             </div>
-            <div class="events_list">
+            <div class="members_list">
+                <div class="members_list_title">
+                    <h3 class="members_title">Всички членове:</h3>
+                </div>
                 <div class="loading_spinner not_visible"></div>
+                <ul class="list_members">
+                </ul>
             </div>
         </div>
     </main>
 </body>
+
 </html>
