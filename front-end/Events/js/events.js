@@ -25,50 +25,51 @@ window.addEventListener("load", async () => {
     data.forEach((event) => {
       generateEvent(event, sessionId);
     });
-  });
-
-  const events = document.querySelectorAll(".event");
-  events.forEach((event) => {
-    //on click event to go to event page
-    event.addEventListener("click", () => {
-      const id = event.querySelector(".event_id").innerText;
-      window.location.href = `./event.html?id=${id}&edit=0`;
+    const events = document.querySelectorAll(".event");
+    events.forEach((event) => {
+      //on click event to go to event page
+      event.addEventListener("click", () => {
+        const id = event.querySelector(".event_id").innerText;
+        window.location.href = `./event.html?id=${id}&edit=0`;
+      });
     });
-  });
-
-  const deleteButtons = document.querySelectorAll(".event_addition_delete");
-  deleteButtons.forEach((button) => {
-    button.addEventListener("click", async (e) => {
-      e.stopPropagation();
-      const isConfirmed =
-        confirm("Сигурни ли сте, че искате да изтриете събитието?");
-      if (isConfirmed) {
-        const id =
-          e.target.parentNode.parentNode.querySelector(".event_id").innerText;
-        try {
-          const response = await fetch(
-            "../../../../alumni/back-end/api/events.php",
-            {
-              method: "DELETE",
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({ id }),
+    const deleteButtons = document.querySelectorAll(".event_addition_delete");
+    deleteButtons.forEach((button) => {
+      button.addEventListener("click", async (e) => {
+        e.stopPropagation();
+        const isConfirmed =
+          confirm("Сигурни ли сте, че искате да изтриете събитието?");
+        if (isConfirmed) {
+          const id =
+            e.target.parentNode.parentNode.querySelector(".event_id").innerText;
+          try {
+            const response = await fetch(
+              "../../../../alumni/back-end/api/events.php",
+              {
+                method: "DELETE",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ id }),
+              }
+            );
+  
+            if (response.ok) {
+              alert("Успешно изтрихте събитието!");
+              window.location.reload();
+            } else {
+              throw new Error("Неуспешно изтриване на събитието!\n");
             }
-          );
-
-          if (response.ok) {
-            alert("Успешно изтрихте събитието!");
-            window.location.reload();
-          } else {
-            throw new Error("Неуспешно изтриване на събитието!\n");
+          } catch (err) {
+            alert(err.message + "\nОпитай отново по-късно.");
           }
-        } catch (err) {
-          alert(err.message + "\nОпитай отново по-късно.");
         }
-      }
+      });
     });
   });
+
+
+
 });
 
 const generateEvent = (data, userId) => {
