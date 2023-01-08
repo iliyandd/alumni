@@ -21,14 +21,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             JSON_UNESCAPED_UNICODE
         ));
     }
-} elseif ($_SERVER['REQUEST_METHOD'] === 'POST') {
+} elseif ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     $parameters = file_get_contents('php://input');
     $data = json_decode($parameters, true);
 
     try {
         $db = new Database();
         $connection = $db->getConnection();
-        $memberHandler = new MemberHandler($connection, 'POST', $data);
+        $memberHandler = new MemberHandler($connection, 'PUT', $data);
 
         $memberHandler->action();
     } catch (PDOException $err) {
