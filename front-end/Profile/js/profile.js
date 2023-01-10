@@ -113,7 +113,6 @@ window.addEventListener("load", async () => {
   //add id to the cookie
   document.cookie = `sessionId=${sessionId}`;
 
-  console.log(sessionObj);
   const loadingSpinner = document.querySelector(".loading_spinner");
   form.style.display = "none";
   loadingSpinner.style.display = "flex";
@@ -150,7 +149,6 @@ form.addEventListener("submit", async (e) => {
     fn.value,
     speciality.value
   );
-  console.log(response);
 
   const success = response.find(
     (element) => element.success !== undefined
@@ -192,16 +190,12 @@ form.addEventListener("submit", async (e) => {
           throw new Error(data.error);
         }
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        console.log(updatedProfile);
-        // alert("Профилът е редактиран успешно!");
-        //reload
         window.location.reload();
       }
       else {
         throw new Error("Проблем със сървъра.\n");
       }
     } catch (err) {
-      console.log(err);
       [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
       alert(err.message + "Опитай да редактираш профила си отново по-късно.");
     }

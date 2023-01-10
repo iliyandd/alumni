@@ -13,7 +13,6 @@ export const getSession = async () => {
       throw new Error("Липсва сесия");
     }
   } catch (error) {
-    console.log(error);
     return null;
   }
 };

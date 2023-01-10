@@ -7,8 +7,8 @@ window.addEventListener("load", async () => {
   sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
   if (sessionId) {
-    alert("Вече си влезнал в профила си!");
-    window.location.href = "../../../../alumni/front-end/profile/profile.html";
+    alert("Не сте влезли в профила си!");
+    window.location.href = "../../../../alumni/front-end/HomePage/homePage.html";
     return;
   }
 });
@@ -66,11 +66,9 @@ form.addEventListener("submit", (e) => {
         if (data.status === 'error') {
           throw new Error(data.message);
         }
-        console.log("success");
-        alert(data.message);
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
         // Redirect to the home page
-        window.location.href = "../../../../alumni/front-end/profile/profile.html";
+        window.location.href = "../../../../alumni/front-end/HomePage/homePage.html";
       })
       .catch((err) => {
         alert(err + "\nОпитай да се впишеш отново по-късно.");

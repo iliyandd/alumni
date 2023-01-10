@@ -7,7 +7,6 @@ class User
 
     private $CHECK_QUERY = 'SELECT id FROM user WHERE username = :username or email = :email or fn = :fn';
 
-    private static $GET_BY_ID_QUERY = 'SELECT * FROM user WHERE id = :id';
     private static $GET_BY_USERNAME_QUERY = 'SELECT * FROM user WHERE username = :username';
     private $id;
     private $username;
@@ -84,93 +83,11 @@ class User
         return $this->email;
     }
 
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    public function getLastName()
-    {
-        return $this->lastName;
-    }
-
     public function getFn()
     {
         return $this->fn;
     }
 
-    public function getSpeciality()
-    {
-        return $this->speciality;
-    }
-
-    public function getInAlumni()
-    {
-        return $this->inAlumni;
-    }
-
-    public function getDateCreated()
-    {
-        return $this->dateCreated;
-    }
-
-    // Setters
-    public function setId($id)
-    {
-        $this->id = $id;
-    }
-
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-
-    public function setEmail($email)
-    {
-        $this->email = $email;
-    }
-
-    public function setPassword($password)
-    {
-        $this->password = $password;
-    }
-
-    public function setFirstName($firstName)
-    {
-        $this->firstName = $firstName;
-    }
-
-    public function setLastName($lastName)
-    {
-        $this->lastName = $lastName;
-    }
-
-    public function setFn($fn)
-    {
-        $this->fn = $fn;
-    }
-
-    public function setSpeciality($speciality)
-    {
-        $this->speciality = $speciality;
-    }
-
-    public function setInAlumni($inAlumni)
-    {
-        $this->inAlumni = $inAlumni;
-    }
-
-    public function setDateCreated($dateCreated)
-    {
-        $this->dateCreated = $dateCreated;
-    }
-
-    // Database methods
     public function save($connection)
     {
         $statement = $connection->prepare($this->SAVE_QUERY);
@@ -181,36 +98,6 @@ class User
             echo $e->getMessage();
             return false;
         }
-    }
-
-    public static function getById($connection, $id)
-    {
-        try {
-            $statement = $connection->prepare(User::$GET_BY_ID_QUERY);
-            $statement->execute(['id' => $id]);
-
-            $userData = $statement->fetch(PDO::FETCH_OBJ);
-            if (!$userData) {
-                return null;
-            }
-
-            return new User(
-                $userData->username,
-                $userData->email,
-                $userData->password,
-                $userData->first_name,
-                $userData->last_name,
-                $userData->fn,
-                $userData->speciality,
-                $userData->in_alumni,
-                $userData->id,
-                $userData->date_created
-            );
-        } catch (PDOException $err) {
-            echo $err->getMessage();
-        }
-
-        return null;
     }
 
     public static function getByUsername($connection, $username)

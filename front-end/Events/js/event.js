@@ -80,7 +80,6 @@ window.addEventListener("load", async () => {
                 );
 
                 if (response.ok) {
-                  alert("Успешно изтрихте събитието!");
                   window.location.href = "../events/events.html";
                 } else {
                   throw new Error("Неуспешно изтриване на събитието!\n");
@@ -131,7 +130,6 @@ window.addEventListener("load", async () => {
                 [...e.target.querySelectorAll(".error")].forEach((el) =>
                   el.remove()
                 );
-                alert("Успешно редактирахте събитието!");
                 window.location.href = `./event.html?id=${id}`;
               } else {
                 throw new Error("Неуспешно редактиране на събитието!\n");
@@ -208,7 +206,6 @@ const getEvent = async (id) => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       return data.result;
     } else {
       throw new Error("Неуспешно зареждане на събитията!\n");

@@ -55,7 +55,6 @@ window.addEventListener("load", async () => {
             );
   
             if (response.ok) {
-              alert("Успешно изтрихте събитието!");
               window.location.reload();
             } else {
               throw new Error("Неуспешно изтриване на събитието!\n");
@@ -104,7 +103,6 @@ const getEvents = async () => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       return data.result;
     } else {
       throw new Error("Неуспешно зареждане на събитията!\n");

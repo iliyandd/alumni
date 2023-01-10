@@ -78,7 +78,6 @@ form.addEventListener("submit", async (e) => {
           throw new Error(data.error);
         }
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        alert("Събитието е създадено успешно!");
 
         window.location.href = "./events.html";
       } else {

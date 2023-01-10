@@ -261,7 +261,6 @@ const removeMember = async (e) => {
       );
 
       if (response.ok) {
-        alert("Членът е премахнат от групата!");
         window.location.reload();
       } else {
         throw new Error("Неуспешно изтриване на член!\n");
@@ -292,7 +291,6 @@ const addMember = async (e) => {
       );
 
       if (response.ok) {
-        alert("Членът е добавен към групата!");
         window.location.reload();
       } else {
         throw new Error("Неуспешно добавяне на потребител към групата!\n");

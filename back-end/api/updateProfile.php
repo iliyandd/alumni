@@ -1,31 +1,29 @@
 <?php
-// for edit profile
+
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     require_once '../db/database.php';
     require_once '../models/user.php';
     require_once 'handlers/updateHandler.php';
-    //get the query parameter id from the URL and store it in a variable
+
     $parameters = file_get_contents('php://input');
     $data = json_decode($parameters, true);
-    //connect to the database
+
     $db;
     $connection;
     try {
         $db = new Database();
         $connection = $db->getConnection();
     } catch (PDOException $e) {
-        http_response_code(500);
         echo $e->getMessage();
-        exit(
-            json_encode(
-                [
-                    'status' => 'error',
-                    'message' =>
-                        'Възникна грешка при свързването с базата данни!',
-                ],
-                JSON_UNESCAPED_UNICODE
-            )
-        );
+        http_response_code(500);
+        exit(json_encode(
+            [
+                'status' => 'error',
+                'message' =>
+                'Възникна грешка при свързването с базата данни!',
+            ],
+            JSON_UNESCAPED_UNICODE
+        ));
     }
 
     try {
@@ -40,65 +38,55 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
             $data['inAlumni'],
             $data['id']
         );
-      
+
         $updateApiHandler = new UpdateApiHandler($connection, $user);
 
         if ($user->userExists($connection, true)) {
             http_response_code(400);
-            exit(
-                json_encode(
-                    [
-                        'status' => 'error',
-                        'message' =>
-                            'Потребител с това потребителско име, имейл или факултетен номер вече съществува!',
-                    ],
-                    JSON_UNESCAPED_UNICODE
-                )
-            );
+            exit(json_encode(
+                [
+                    'status' => 'error',
+                    'message' =>
+                    'Потребител с това потребителско име, имейл или факултетен номер вече съществува!',
+                ],
+                JSON_UNESCAPED_UNICODE
+            ));
         }
 
         if ($updateApiHandler->updateUser()) {
             session_start();
-            //remove session with key user
             unset($_SESSION['user']);
             $sessionData = $user->toJson();
             $sessionData['id'] = $user->getId();
             $_SESSION['user'] = $sessionData;
             http_response_code(200);
-            exit(
-                json_encode(
-                    [
-                        'status' => 'success',
-                        'message' => 'Успешно редактиране!',
-                    ],
-                    JSON_UNESCAPED_UNICODE
-                )
-            );
-        } else {
-            http_response_code(500);
-            exit(
-                json_encode(
-                    [
-                        'status' => 'error',
-                        'message' => 'Възникна грешка при редактирането!',
-                    ],
-                    JSON_UNESCAPED_UNICODE
-                )
-            );
-        }
-    } catch (PDOException $e) {
-        http_response_code(500);
-        echo $e->getMessage();
-        exit(
-            json_encode(
+            exit(json_encode(
                 [
-                    'status' => 'error',
-                    'message' =>
-                        'Възникна грешка при редактирането в базата данни!',
+                    'status' => 'success',
+                    'message' => 'Успешно редактиране!',
                 ],
                 JSON_UNESCAPED_UNICODE
-            )
-        );
+            ));
+        } else {
+            http_response_code(500);
+            exit(json_encode(
+                [
+                    'status' => 'error',
+                    'message' => 'Възникна грешка при редактирането!',
+                ],
+                JSON_UNESCAPED_UNICODE
+            ));
+        }
+    } catch (PDOException $e) {
+        echo $e->getMessage();
+        http_response_code(500);
+        exit(json_encode(
+            [
+                'status' => 'error',
+                'message' =>
+                'Възникна грешка при редактирането в базата данни!',
+            ],
+            JSON_UNESCAPED_UNICODE
+        ));
     }
 }
-
