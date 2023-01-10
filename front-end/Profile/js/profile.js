@@ -110,7 +110,6 @@ window.addEventListener("load", async () => {
     window.location.href = "../login/login.html";
     return;
   }
-  //add id to the cookie
   document.cookie = `sessionId=${sessionId}`;
 
   const loadingSpinner = document.querySelector(".loading_spinner");
@@ -120,7 +119,7 @@ window.addEventListener("load", async () => {
     loadDataIntoPage(sessionObj);
     loadingSpinner.style.display = "none";
     form.style.display = "block";
-  }, 200); // here we don't make API call so need from little timeout (200 ms)
+  }, 200);
 });
 
 form.addEventListener("submit", async (e) => {
@@ -154,7 +153,6 @@ form.addEventListener("submit", async (e) => {
     (element) => element.success !== undefined
   )?.success;
   if (success) {
-    //get the cookie with id session id and add it to the data
     const id = document.cookie
       .split("; ")
       .find((row) => row.startsWith("sessionId"))

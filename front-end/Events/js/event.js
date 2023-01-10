@@ -19,7 +19,6 @@ window.addEventListener("load", async () => {
     return;
   }
 
-  //get id and edit params from url if exists
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
   const edit = urlParams.get("edit");

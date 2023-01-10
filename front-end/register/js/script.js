@@ -125,7 +125,6 @@ form.addEventListener("submit", (e) => {
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
         alert(err + "\nОпитай да се регистрираш отново по-късно.");
       });
-    //remove all error messages
   } else {
     addErrorMessages(response);
   }

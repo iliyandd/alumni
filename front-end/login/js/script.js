@@ -54,7 +54,6 @@ form.addEventListener("submit", (e) => {
     })
       .then((response) => {
         if (!response.ok && response.status !== 404) {
-          // Check the status code and throw an error if it's not in the 2xx range
           throw new Error(
             `Грешка с код: ${response.status} и съобщение: ${response.statusText}`
           );
@@ -62,12 +61,10 @@ form.addEventListener("submit", (e) => {
         return response.json();
       })
       .then((data) => {
-        // Check the data object for any error messages or flags
         if (data.status === 'error') {
           throw new Error(data.message);
         }
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        // Redirect to the home page
         window.location.href = "../../../../alumni/front-end/HomePage/homePage.html";
       })
       .catch((err) => {

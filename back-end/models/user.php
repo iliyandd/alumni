@@ -67,7 +67,6 @@ class User
         return $result;
     }
 
-    // Getters
     public function getId()
     {
         return $this->id;

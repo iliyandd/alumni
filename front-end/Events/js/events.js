@@ -27,7 +27,6 @@ window.addEventListener("load", async () => {
     });
     const events = document.querySelectorAll(".event");
     events.forEach((event) => {
-      //on click event to go to event page
       event.addEventListener("click", () => {
         const id = event.querySelector(".event_id").innerText;
         window.location.href = `./event.html?id=${id}&edit=0`;
