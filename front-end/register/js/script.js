@@ -123,7 +123,7 @@ form.addEventListener("submit", (e) => {
       })
       .catch((err) => {
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        alert(err + "\nОпитай да се регистрираш отново по-късно.");
+        alert(err.message + "\nОпитай да се регистрираш отново по-късно.");
       });
   } else {
     addErrorMessages(response);

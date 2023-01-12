@@ -68,7 +68,7 @@ form.addEventListener("submit", (e) => {
         window.location.href = "../../../../alumni/front-end/HomePage/homePage.html";
       })
       .catch((err) => {
-        alert(err + "\nОпитай да се впишеш отново по-късно.");
+        alert(err.message + "\nОпитай да се впишеш отново по-късно.");
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
       });
   } else {
