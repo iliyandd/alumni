@@ -7,7 +7,7 @@ window.addEventListener("load", async () => {
   sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
   if (sessionId) {
-    alert("Не сте влезли в профила си!");
+    alert("Вие сте влезли в профила си!");
     window.location.href = "../../../../alumni/front-end/HomePage/homePage.html";
     return;
   }
