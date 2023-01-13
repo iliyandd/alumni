@@ -4,6 +4,7 @@ footer {
 }
 
 footer .container {
+    background-color: #2c74b3;
     display: flex;
     justify-content: space-between;
     align-items: center;
