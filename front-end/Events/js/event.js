@@ -3,6 +3,7 @@ import {
   isValidName,
   addErrorMessages,
 } from "../../GlobalScripts/validations.js";
+import { changeExitWithEntry } from "../../GlobalScripts/footer.js";
 window.addEventListener("load", async () => {
   let sessionId = null;
   const sessionObj = await getSession();
@@ -11,6 +12,7 @@ window.addEventListener("load", async () => {
   if (!sessionId) {
     const entry = document.querySelector('.main_nav_list li:last-child');
     entry.innerHTML = '<a class="main_nav_item_link" href="../login/login.html">Вход</a>';
+    changeExitWithEntry();
     alert("Не сте влезли в профила си!");
     window.location.href = "../login/login.html";
     return;
