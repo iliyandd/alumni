@@ -1,0 +1,124 @@
+footer {
+    background-color: #2c74b3;
+    width: 100%;
+}
+
+footer .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: "Poppins", sans-serif;
+    margin: 0 auto;
+    margin-top: 50px;
+    max-width: 1300px;
+    padding: 25px;
+    width: 100%;
+    flex-direction: row;
+}
+
+
+footer .container .footer_logo {
+    width: 100px;
+}
+
+footer .container .social_icons {
+    margin-top: 10px;
+}
+
+footer .container .links {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 50px;
+    flex-direction: row;
+}
+
+footer .container .useful_links .footer_title_useful {
+    font-size: 25px;
+    color: aliceblue;
+}
+
+footer .container .social_links .footer_title_social {
+    font-size: 25px;
+    color: aliceblue;
+}
+
+
+footer .container .useful_links .use_links .icons_nav_footer,
+.icons_social_footer {
+    border: 0;
+    background: none;
+    cursor: pointer;
+    outline: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer .container .useful_links .use_links .icons_nav_footer::after {
+    content: "\00BB";
+    color: aliceblue;
+    font-size: 26px;
+    font-weight: bold;
+    padding-right: 10px;
+}
+
+footer .container .useful_links .use_links li {
+    list-style: none;
+}
+
+footer .container .social_icons ul li {
+    margin-top: 10px;
+}
+
+footer .container .useful_links .use_links li a,
+.social_links .social_icons li a {
+    color: #fff;
+    font-size: 17px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    width: 100%;
+}
+
+footer .container .social_links .social_icons .icons_social_footer {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+}
+
+footer .container .social_links .social_icons li {
+    list-style: none;
+}
+
+footer .container .useful_links .use_links li a:hover,
+footer .container .social_links .social_icons li a:hover {
+    color: #B2B2B2;
+}
+
+footer .container .social_text,
+footer .container .nav_text {
+    display: flex;
+    align-self: flex-end;
+}
+
+footer .container .nav_text {
+    display: flex;
+    align-self: center;
+}
+
+@media (max-width: 768px) {
+    footer .container {
+        display: flex;
+        flex-direction: column;
+        gap: 30px;
+    }
+}
+
+@media (max-width: 600px) {
+    footer .container .links {
+        flex-direction: column;
+        gap: 20px;
+    }
+}
