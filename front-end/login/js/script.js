@@ -7,8 +7,8 @@ window.addEventListener("load", async () => {
   sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
   if (sessionId) {
-    alert("Вече си влезнал в профила си!");
-    window.location.href = "../../../../alumni/front-end/profile/profile.html";
+    alert("Вие сте влезли в профила си!");
+    window.location.href = "../../../../alumni/front-end/HomePage/homePage.html";
     return;
   }
 });
@@ -54,7 +54,6 @@ form.addEventListener("submit", (e) => {
     })
       .then((response) => {
         if (!response.ok && response.status !== 404) {
-          // Check the status code and throw an error if it's not in the 2xx range
           throw new Error(
             `Грешка с код: ${response.status} и съобщение: ${response.statusText}`
           );
@@ -62,18 +61,14 @@ form.addEventListener("submit", (e) => {
         return response.json();
       })
       .then((data) => {
-        // Check the data object for any error messages or flags
         if (data.status === 'error') {
           throw new Error(data.message);
         }
-        console.log("success");
-        alert(data.message);
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        // Redirect to the home page
-        window.location.href = "../../../../alumni/front-end/profile/profile.html";
+        window.location.href = "../../../../alumni/front-end/HomePage/homePage.html";
       })
       .catch((err) => {
-        alert(err + "\nОпитай да се впишеш отново по-късно.");
+        alert(err.message + "\nОпитай да се впишеш отново по-късно.");
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
       });
   } else {

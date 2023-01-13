@@ -106,14 +106,14 @@ window.addEventListener("load", async () => {
   sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
   if (!sessionId) {
+    const entry = document.querySelector('.main_nav_list li:last-child');
+    entry.innerHTML = '<a class="main_nav_item_link" href="../login/login.html">Вход</a>';
     alert("Не сте влезли в профила си!");
     window.location.href = "../login/login.html";
     return;
   }
-  //add id to the cookie
   document.cookie = `sessionId=${sessionId}`;
 
-  console.log(sessionObj);
   const loadingSpinner = document.querySelector(".loading_spinner");
   form.style.display = "none";
   loadingSpinner.style.display = "flex";
@@ -121,7 +121,7 @@ window.addEventListener("load", async () => {
     loadDataIntoPage(sessionObj);
     loadingSpinner.style.display = "none";
     form.style.display = "block";
-  }, 200); // here we don't make API call so need from little timeout (200 ms)
+  }, 200);
 });
 
 form.addEventListener("submit", async (e) => {
@@ -150,13 +150,11 @@ form.addEventListener("submit", async (e) => {
     fn.value,
     speciality.value
   );
-  console.log(response);
 
   const success = response.find(
     (element) => element.success !== undefined
   )?.success;
   if (success) {
-    //get the cookie with id session id and add it to the data
     const id = document.cookie
       .split("; ")
       .find((row) => row.startsWith("sessionId"))
@@ -192,16 +190,12 @@ form.addEventListener("submit", async (e) => {
           throw new Error(data.error);
         }
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        console.log(updatedProfile);
-        // alert("Профилът е редактиран успешно!");
-        //reload
         window.location.reload();
       }
       else {
         throw new Error("Проблем със сървъра.\n");
       }
     } catch (err) {
-      console.log(err);
       [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
       alert(err.message + "Опитай да редактираш профила си отново по-късно.");
     }

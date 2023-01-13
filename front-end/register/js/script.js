@@ -81,7 +81,6 @@ form.addEventListener("submit", (e) => {
     speciality.value
   );
 
-  console.log(response);
 
   const success = response.find(
     (element) => element.success !== undefined
@@ -115,20 +114,17 @@ form.addEventListener("submit", (e) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         if (data.status === 'error') {
           throw new Error(data.message);
         }
 
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        alert("Ти се регистрира успешно!");
         window.location.href = "../login/login.html";
       })
       .catch((err) => {
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-        alert(err + "\nОпитай да се регистрираш отново по-късно.");
+        alert(err.message + "\nОпитай да се регистрираш отново по-късно.");
       });
-    //remove all error messages
   } else {
     addErrorMessages(response);
   }

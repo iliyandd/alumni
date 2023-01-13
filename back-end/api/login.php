@@ -3,10 +3,9 @@
 require_once '../db/database.php';
 require_once 'handlers/loginHandler.php';
 
-// init
+
 $parameters = file_get_contents('php://input');
 $data = json_decode($parameters, true);
-
 
 try {
     $db = new Database();

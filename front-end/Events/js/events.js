@@ -5,6 +5,8 @@ window.addEventListener("load", async () => {
   sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
   if (!sessionId) {
+    const entry = document.querySelector('.main_nav_list li:last-child');
+    entry.innerHTML = '<a class="main_nav_item_link" href="../login/login.html">Вход</a>';
     alert("Не сте влезли в профила си!");
     window.location.href = "../login/login.html";
     return;
@@ -27,7 +29,6 @@ window.addEventListener("load", async () => {
     });
     const events = document.querySelectorAll(".event");
     events.forEach((event) => {
-      //on click event to go to event page
       event.addEventListener("click", () => {
         const id = event.querySelector(".event_id").innerText;
         window.location.href = `./event.html?id=${id}&edit=0`;
@@ -55,7 +56,6 @@ window.addEventListener("load", async () => {
             );
   
             if (response.ok) {
-              alert("Успешно изтрихте събитието!");
               window.location.reload();
             } else {
               throw new Error("Неуспешно изтриване на събитието!\n");
@@ -104,7 +104,6 @@ const getEvents = async () => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       return data.result;
     } else {
       throw new Error("Неуспешно зареждане на събитията!\n");

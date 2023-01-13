@@ -9,6 +9,8 @@ window.addEventListener("load", async () => {
   sessionId = sessionObj != null && sessionObj.id != null && sessionObj.id;
 
   if (!sessionId) {
+    const entry = document.querySelector('.main_nav_list li:last-child');
+    entry.innerHTML = '<a class="main_nav_item_link" href="../login/login.html">Вход</a>';
     alert("Не сте влезли в профила си!");
     window.location.href = "../login/login.html";
     return;
@@ -19,7 +21,6 @@ window.addEventListener("load", async () => {
     return;
   }
 
-  //get id and edit params from url if exists
   const urlParams = new URLSearchParams(window.location.search);
   const id = urlParams.get("id");
   const edit = urlParams.get("edit");
@@ -80,7 +81,6 @@ window.addEventListener("load", async () => {
                 );
 
                 if (response.ok) {
-                  alert("Успешно изтрихте събитието!");
                   window.location.href = "../events/events.html";
                 } else {
                   throw new Error("Неуспешно изтриване на събитието!\n");
@@ -131,7 +131,6 @@ window.addEventListener("load", async () => {
                 [...e.target.querySelectorAll(".error")].forEach((el) =>
                   el.remove()
                 );
-                alert("Успешно редактирахте събитието!");
                 window.location.href = `./event.html?id=${id}`;
               } else {
                 throw new Error("Неуспешно редактиране на събитието!\n");
@@ -208,7 +207,6 @@ const getEvent = async (id) => {
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
       return data.result;
     } else {
       throw new Error("Неуспешно зареждане на събитията!\n");
