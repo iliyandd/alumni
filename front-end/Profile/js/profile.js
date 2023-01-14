@@ -193,13 +193,15 @@ form.addEventListener("submit", async (e) => {
         }
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
         window.location.reload();
+      } else if (response.status == 400) {
+        throw new Error("Потребител с това потребителско име, имейл или факултетен номер вече съществува!\n");
       }
       else {
         throw new Error("Проблем със сървъра.\n");
       }
     } catch (err) {
       [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-      alert(err.message + "Опитай да редактираш профила си отново по-късно.");
+      alert(err.message + "Опитай да редактираш профила си отново.");
     }
   } else {
     addErrorMessages(response);
