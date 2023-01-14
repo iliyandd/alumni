@@ -69,6 +69,13 @@ CREATE TABLE `user` (
 -- Схема на данните от таблица `user`
 --
 
+-- Пароли:
+-- nikizhelqzkov@gmail.com -> Samolevski1234!
+-- nikijivkov@abv.com -> Samolevski1234!
+-- viki_ivanova@abv.com -> Viki123!
+-- iliqn@abv.gb -> Iliqn123!
+
+
 INSERT INTO `user` (`id`, `username`, `email`, `password`, `first_name`, `last_name`, `fn`, `speciality`, `in_alumni`, `date_created`) VALUES
 (2, 'nikolajzz', 'nikiulin@gmail.com', '$2y$10$wDySUYVOwKQQxv/gvwW/P.E31/3CcLyOwzhXbW8DhXfBxcYQPLMw.', 'NZZ', 'Zhh', '82021', 'Информатика', 1, '2022-12-23'),
 (3, 'nikizhelqzkov', 'nikizhelqzkov@gmail.com', '$2y$10$SqwM.cZwR4P1mDmINp8Jb.D.ppHnvB3Ugm9lC0lChaiURn0Gqzadi', 'Nikolay', 'Zhelyazkov', '82022', 'Компютърни науки', 1, '2022-12-24'),
