@@ -70,8 +70,8 @@ CREATE TABLE `user` (
 --
 
 -- Пароли:
--- nikizhelqzkov@gmail.com -> Samolevski1234!
--- nikijivkov@abv.com -> Samolevski1234!
+-- nikizhelqzkov@gmail.com -> Samolevski123456789!
+-- nikijivkov@abv.com -> Samolevski123456789!
 -- viki_ivanova@abv.com -> Viki123!
 -- iliqn@abv.gb -> Iliqn123!
 
