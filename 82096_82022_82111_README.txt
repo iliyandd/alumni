@@ -1,0 +1,53 @@
+Версията на проекта е финална!
+
+=== Структура на проекта ===
+back-end
+    api
+        handlers
+            *.php
+        *.php
+    db
+        alumni-fmi.sql
+        database.php
+        alumni_with_data.sql
+    models
+        *.php
+front-end
+    events
+        css
+        js
+        *.html
+    globalStyle
+        *.css
+    globalScripts
+        *.js
+    HomePage
+        Css
+        Js
+        homePage.html
+    login
+        Js
+        Login.html
+    Members
+        CSS
+        JS
+        members.html
+    Profile
+        CSS
+        JS
+        Profile.html
+    Register
+        CSS
+        JS
+        Register.html
+Img
+index.php
+
+
+=== Стартиране на проекта ===
+За да можем да използваме приложението максимално трябва да имаме инсталиран
+XAMPP, който ни предоставя сървър, върху който да работи нашето PHP и база MySql.
+Пускаме Apache сървъра и базата. Проекта ни трябва да е поставен в папката htdocs
+на XAMPP, за да работи коректно. Пускаме сървъра и базата данни, чрез XAMPP, след
+което при отваряне на страницата в браузър и изписваме localhost/alumni преди пътя
+на файла.

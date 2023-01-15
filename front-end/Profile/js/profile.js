@@ -8,6 +8,7 @@ import {
   isValidSpeciality,
 } from "../../GlobalScripts/validations.js";
 import { getSession } from "../../GlobalScripts/session.js";
+import { changeExitWithEntry } from "../../GlobalScripts/footer.js";
 
 const validate = (
   username,
@@ -108,6 +109,7 @@ window.addEventListener("load", async () => {
   if (!sessionId) {
     const entry = document.querySelector('.main_nav_list li:last-child');
     entry.innerHTML = '<a class="main_nav_item_link" href="../login/login.html">Вход</a>';
+    changeExitWithEntry();
     alert("Не сте влезли в профила си!");
     window.location.href = "../login/login.html";
     return;
@@ -191,13 +193,15 @@ form.addEventListener("submit", async (e) => {
         }
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
         window.location.reload();
+      } else if (response.status == 400) {
+        throw new Error("Потребител с това потребителско име, имейл или факултетен номер вече съществува!\n");
       }
       else {
         throw new Error("Проблем със сървъра.\n");
       }
     } catch (err) {
       [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-      alert(err.message + "Опитай да редактираш профила си отново по-късно.");
+      alert(err.message + "Опитай да редактираш профила си отново.");
     }
   } else {
     addErrorMessages(response);
