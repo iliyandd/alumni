@@ -125,6 +125,12 @@
                     </div>
                 </div>
             </form>
+
+            <form action="../../back-end/aws/uploadToS3.php" method="post" enctype="multipart/form-data">
+                <label for="prodile-picture">Filename: </label>
+                <input id="prodile-picture" type="file" name="profile_picture">
+                <input type="submit" name="submit" value="Upload">
+            </form>
         </div>
     </main>
     <footer>
