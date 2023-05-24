@@ -1,13 +1,13 @@
 <?php
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once '../aws/s3.php';
+// if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+//     require_once '../aws/s3.php';
 
-    if (isset($_FILES['profile_picture'])) {
-        $s3 = new S3();
-        $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name']);
-    }
-}
+//     if (isset($_FILES['profile_picture'])) {
+//         $s3 = new S3();
+//         $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name']);
+//     }
+// }
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     require_once '../db/database.php';
