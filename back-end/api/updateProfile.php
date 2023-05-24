@@ -15,6 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     require_once '../db/database.php';
     require_once '../models/user.php';
     require_once 'handlers/updateHandler.php';
+    require_once '../aws/s3.php';
 
     $parameters = file_get_contents('php://input');
     $data = json_decode($parameters, true);
@@ -65,6 +66,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         }
 
         if ($updateApiHandler->updateUser()) {
+            $s3 = new S3();
+
             session_start();
             unset($_SESSION['user']);
             $sessionData = $user->toJson();
@@ -75,6 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
                 [
                     'status' => 'success',
                     'message' => 'Успешно редактиране!',
+                    'imageUrl' => $s3->getObjectUrl(),
                 ],
                 JSON_UNESCAPED_UNICODE
             ));

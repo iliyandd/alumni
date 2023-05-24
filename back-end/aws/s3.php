@@ -34,4 +34,18 @@ class S3
             'SourceFile' => $fileTmpName,
         ]);
     }
+
+    public function getObjectUrl()
+    {
+        $cmd = $this->s3Client->getCommand('GetObject', [
+            'Bucket' => $this->bucketName,
+            'Key'    => 'profile_pictures/image-1.png',
+        ]);
+
+        //The period of availability
+        $request = $this->s3Client->createPresignedRequest($cmd, '+10 minutes');
+
+        //Get the pre-signed URL
+        return (string) $request->getUri();
+    }
 }
