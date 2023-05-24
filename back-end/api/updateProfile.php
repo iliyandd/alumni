@@ -7,6 +7,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $s3 = new S3();
         $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name']);
     }
+
+    header('Location: ../../front-end/profile/Profile.html');
 }
 
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
