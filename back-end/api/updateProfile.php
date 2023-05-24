@@ -3,6 +3,7 @@
 if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     require_once '../db/database.php';
     require_once '../models/user.php';
+    require_once '../aws/s3.php';
     require_once 'handlers/updateHandler.php';
 
     $parameters = file_get_contents('php://input');
@@ -54,6 +55,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         }
 
         if ($updateApiHandler->updateUser()) {
+            if (isset($_FILES['profile_picture'])) {
+                $s3 = new S3();
+                $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name']);
+            }
+
             session_start();
             unset($_SESSION['user']);
             $sessionData = $user->toJson();
