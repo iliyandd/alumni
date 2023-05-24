@@ -59,9 +59,13 @@
             </div>
 
             <form action="../../back-end/api/updateProfile.php" method="post" enctype="multipart/form-data">
-                <label for="upload-profile-picture">Профилна снимка</label>
-                <input id="upload-profile-picture" type="file" name="profile_picture">
-                <input type="submit" name="submit" value="Upload">
+                <div class="form_group">
+                    <div>
+                        <label for="upload-profile-picture">Профилна снимка</label>
+                    </div>
+                    <input id="upload-profile-picture" type="file" name="profile_picture">
+                    <input type="submit" name="submit" value="Upload">
+                </div>
             </form>
 
             <div class="loading_spinner not_visible"></div>
