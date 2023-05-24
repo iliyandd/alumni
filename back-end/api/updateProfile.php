@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_FILES['profile_picture'])) {
         $s3 = new S3();
-        $s3->putObject('profile_pictures/', $data['fileName']);
+        $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name']);
     }
 }
 
