@@ -191,6 +191,7 @@ form.addEventListener("submit", async (e) => {
         if (updatedProfile.error) {
           throw new Error(data.error);
         }
+        console.log(updatedProfile);
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
         window.location.reload();
       } else if (response.status == 400) {

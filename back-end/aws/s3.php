@@ -35,11 +35,11 @@ class S3
         ]);
     }
 
-    public function getObjectUrl()
+    public function getObjectUrl($dir, $fileName)
     {
         $cmd = $this->s3Client->getCommand('GetObject', [
             'Bucket' => $this->bucketName,
-            'Key'    => 'profile_pictures/image-1.png',
+            'Key'    => $dir . $fileName,
         ]);
 
         //The period of availability

@@ -78,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
                 [
                     'status' => 'success',
                     'message' => 'Успешно редактиране!',
-                    'imageUrl' => $s3->getObjectUrl(),
+                    'profilePictureUrl' => $s3->getObjectUrl('profile_pictures/', "{$_SESSION['user']['id']}.png"),
                 ],
                 JSON_UNESCAPED_UNICODE
             ));
