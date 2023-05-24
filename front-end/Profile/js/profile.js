@@ -142,9 +142,6 @@ form.addEventListener("submit", async (e) => {
     ? false
     : true;
 
-  const fileInput = document.getElementById('upload-profile-picture');
-  const file = fileInput.files[0];
-
   const response = validate(
     username.value,
     email.value,
@@ -173,7 +170,6 @@ form.addEventListener("submit", async (e) => {
       lastName: lastName.value,
       fn: fn.value,
       speciality: speciality.value,
-      file,
       inAlumni,
       id,
     };
