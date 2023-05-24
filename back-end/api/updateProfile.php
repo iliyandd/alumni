@@ -3,9 +3,9 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once '../aws/s3.php';
 
-    if (isset($_FILES['profile_picture']) && isset($_FILES['profile_picture']['tmp_name'])) {
+    if (isset($_FILES['profile_picture'])) {
         $s3 = new S3();
-        $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name']);
+        $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name'], $_FILES['profile_picture']['name']);
     }
 
     header('Location: ../../front-end/profile/Profile.html');

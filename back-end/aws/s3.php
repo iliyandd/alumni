@@ -26,11 +26,11 @@ class S3
         ]);
     }
 
-    public function putObject($dir, $fileTmpName)
+    public function putObject($dir, $fileTmpName, $fileName)
     {
         $this->s3Client->putObject([
             'Bucket' => $this->bucketName,
-            'Key' => $dir . basename($fileTmpName),
+            'Key' => $dir . basename($fileName),
             'SourceFile' => $fileTmpName,
         ]);
     }
