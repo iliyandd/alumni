@@ -177,33 +177,25 @@ form.addEventListener("submit", async (e) => {
         };
         console.log(data);
 
-        try {
-            const response = await fetch(
-                "../../../../alumni/back-end/api/updateProfile.php",
-                {
-                    method: "PUT",
-                    body: JSON.stringify(data),
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                }
-            );
-            if (response.ok) {
-                const updatedProfile = await response.json();
-                if (updatedProfile.error) {
-                    throw new Error(data.error);
-                }
-                [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-                window.location.reload();
-            } else if (response.status == 400) {
-                throw new Error("Потребител с това потребителско име, имейл или факултетен номер вече съществува!\n");
-            }
-            else {
-                throw new Error("Проблем със сървъра.\n");
-            }
-        } catch (err) {
-            [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
-            alert(err.message + "Опитай да редактираш профила си отново.");
+    try {
+      const response = await fetch(
+        "../../../../alumni/back-end/api/updateProfile.php",
+        {
+          method: "PUT",
+          body: JSON.stringify(data),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.ok) {
+        const updatedProfile = await response.json();
+        if (updatedProfile.error) {
+          throw new Error(data.error);
+        }
+        if (updatedProfile.profilePictureUrl) {
+          const profilePicture = document.getElementById("profile-picture");
+          profilePicture.innerHTML += '<img src=${updatedProfile.profilePictureUrl}> alt="logo"';
         }
     } else {
         addErrorMessages(response);
