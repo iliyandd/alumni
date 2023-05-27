@@ -69,7 +69,7 @@ const validate = (
 const loadDataIntoPage = (profile) => {
   const headerName = document.querySelector("#header_profile_name");
   headerName.textContent = `${profile.firstName} ${profile.lastName}`;
-  const profilePictureUrl = document.querySelector("#profile-picture");
+  const profilePictureUrl = document.getElementById("profile-picture");
   const firstName = document.querySelector("#first_name");
   const lastName = document.querySelector("#last_name");
   const username = document.querySelector("#username");
@@ -192,10 +192,6 @@ form.addEventListener("submit", async (e) => {
         const updatedProfile = await response.json();
         if (updatedProfile.error) {
           throw new Error(data.error);
-        }
-        if (updatedProfile.profilePictureUrl) {
-          const profilePicture = document.getElementById("profile-picture");
-          profilePicture.innerHTML += `<img src="${updatedProfile.profilePictureUrl}" alt="logo">`;
         }
         [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
         window.location.reload();
