@@ -1,5 +1,4 @@
 <?php
-// require_once '../aws/s3.php';
 
 class User
 {
@@ -49,8 +48,6 @@ class User
         $detailInformation = false,
         $sensitiveInformation = false
     ) {
-        // $s3 = new S3();
-
         $result = [
             'username' => $this->username,
             'email' => $this->email,
@@ -59,7 +56,6 @@ class User
             'fn' => $this->fn,
             'speciality' => $this->speciality,
             'inAlumni' => $this->inAlumni,
-            // 'profilePictureUrl' => $s3->getObjectUrl('profile_pictures/', "{$this->username}.png"),
         ];
         if ($detailInformation) {
             $result['id'] = $this->id;
