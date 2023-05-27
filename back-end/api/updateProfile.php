@@ -5,7 +5,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if (isset($_FILES['profile_picture'])) {
         $s3 = new S3();
-        $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name'], $_FILES['profile_picture']['name']);
+        $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name'], "{$_SESSION['user']['id']}.png");
     }
 
     header('Location: ../../front-end/profile/Profile.html');
@@ -15,7 +15,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
     require_once '../db/database.php';
     require_once '../models/user.php';
     require_once 'handlers/updateHandler.php';
-    require_once '../aws/s3.php';
 
     $parameters = file_get_contents('php://input');
     $data = json_decode($parameters, true);
@@ -66,8 +65,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
         }
 
         if ($updateApiHandler->updateUser()) {
-            $s3 = new S3();
-
             session_start();
             unset($_SESSION['user']);
             $sessionData = $user->toJson();
@@ -78,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
                 [
                     'status' => 'success',
                     'message' => 'Успешно редактиране!',
-                    'profilePictureUrl' => $s3->getObjectUrl('profile_pictures/', "{$_SESSION['user']['id']}.png"),
                 ],
                 JSON_UNESCAPED_UNICODE
             ));

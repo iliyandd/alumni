@@ -3,6 +3,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     session_start();
     if (isset($_SESSION['user'])) {
         require_once '../../db/database.php';
+        require_once '../aws/s3.php';
 
         try {
             $db = new Database();
@@ -23,8 +24,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             ]);
         }
 
+        $s3 = new S3();
+        $_SESSION['user']['profilePictureUrl'] = $s3->getObjectUrl('profile_pictures/', "{$_SESSION['user']['id']}.png");
+
         http_response_code(200);
-        echo json_encode($_SESSION['user']);
         return json_encode($_SESSION['user']);
     } else {
         http_response_code(401);

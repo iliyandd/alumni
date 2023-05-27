@@ -69,6 +69,7 @@ const validate = (
 const loadDataIntoPage = (profile) => {
   const headerName = document.querySelector("#header_profile_name");
   headerName.textContent = `${profile.firstName} ${profile.lastName}`;
+  const profilePictureUrl = document.querySelector("#profile-picture");
   const firstName = document.querySelector("#first_name");
   const lastName = document.querySelector("#last_name");
   const username = document.querySelector("#username");
@@ -77,6 +78,7 @@ const loadDataIntoPage = (profile) => {
   const speciality = document.querySelector("#speciality");
   const inAlumni = document.querySelector("#in_alumni_text");
 
+  profilePictureUrl.innerHTML = `<img src="${profile.profilePictureUrl}" alt="logo">`;
   firstName.value = profile.firstName != "" ? profile.firstName : "";
   lastName.value = profile.lastName != "" ? profile.lastName : "";
   username.value = profile.username != "" ? profile.username : "";
