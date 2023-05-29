@@ -23,6 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             ]);
         }
 
+        $_SESSION['user']['profilePictureUrl'] = User::getProfilePictureUrl($_SESSION['user']['username'], $connection);
+
         http_response_code(200);
         echo json_encode($_SESSION['user']);
         return json_encode($_SESSION['user']);

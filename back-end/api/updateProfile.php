@@ -2,11 +2,19 @@
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once '../aws/s3.php';
+    require '../models/user.php';
+    require_once '../db/database.php';
+
+    $db = new Database();
+    $connection = $db->getConnection();
 
     session_start();
     if (isset($_SESSION['user']) && isset($_FILES['profile_picture'])) {
         $s3 = new S3();
         $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name'], "{$_SESSION['user']['username']}.png");
+        $profilePictureUrl = $s3->getObjectUrl('profile_pictures/', "{$_SESSION['user']['username']}.png");
+
+        User::updateUserProfilePicture($_SESSION['user']['id'], $profilePictureUrl, $connection);
     }
 
     header('Location: ../../front-end/profile/Profile.html');
