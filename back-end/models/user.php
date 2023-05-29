@@ -1,6 +1,6 @@
 <?php
 
-require '../aws/s3.php';
+require_once 'C:\MyDownload\htdocs\alumni\back-end\aws\s3.php';
 
 class User
 {

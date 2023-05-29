@@ -1,5 +1,5 @@
 <?php
-require '../../vendor/autoload.php';
+require 'C:\MyDownload\htdocs\alumni\vendor\autoload.php';
 
 use Aws\S3\S3Client;
 

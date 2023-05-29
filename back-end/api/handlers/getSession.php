@@ -1,4 +1,6 @@
 <?php
+require_once '../../models/user.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     session_start();
     if (isset($_SESSION['user'])) {
