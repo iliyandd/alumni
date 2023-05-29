@@ -1,5 +1,4 @@
 <?php
-
 class User
 {
     private $SAVE_QUERY =

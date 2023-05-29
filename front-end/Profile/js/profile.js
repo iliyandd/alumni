@@ -191,10 +191,6 @@ form.addEventListener("submit", async (e) => {
                 if (updatedProfile.error) {
                     throw new Error(data.error);
                 }
-                if (updatedProfile.profilePictureUrl) {
-                    const profilePicture = document.getElementById("profile-picture");
-                    profilePicture.innerHTML += `<img src="${updatedProfile.profilePictureUrl}" alt="logo">`;
-                }
                 [...e.target.querySelectorAll(".error")].forEach((el) => el.remove());
                 window.location.reload();
             } else if (response.status == 400) {
