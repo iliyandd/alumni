@@ -76,12 +76,14 @@ const loadDataIntoPage = (profile) => {
   const fn = document.querySelector("#fn");
   const speciality = document.querySelector("#speciality");
   const inAlumni = document.querySelector("#in_alumni_text");
+  const profilePicture = document.getElementById("profile-picture");
 
   firstName.value = profile.firstName != "" ? profile.firstName : "";
   lastName.value = profile.lastName != "" ? profile.lastName : "";
   username.value = profile.username != "" ? profile.username : "";
   email.value = profile.email != "" ? profile.email : "";
   fn.value = profile.fn != "" ? profile.fn : "";
+  profilePicture.innerHTML = `<img src="${profile.profilePictureUrl}" alt="logo" style="width: 150px; height: 220px;" />`;
 
   const options = [...speciality.children];
   if (profile.speciality != null) {

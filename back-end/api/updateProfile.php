@@ -3,9 +3,10 @@
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require_once '../aws/s3.php';
 
-    if (isset($_FILES['profile_picture'])) {
+    session_start();
+    if (isset($_SESSION['user']) && isset($_FILES['profile_picture'])) {
         $s3 = new S3();
-        $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name'], "{$_SESSION['user']['id']}.png");
+        $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name'], "{$_SESSION['user']['username']}.png");
     }
 
     header('Location: ../../front-end/profile/Profile.html');
