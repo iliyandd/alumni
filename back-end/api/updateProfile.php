@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $connection = $db->getConnection();
 
     session_start();
-    if (isset($_SESSION['user']) && isset($_FILES['profile_picture'])) {
+    if (isset($_FILES['profile_picture'])) {
         $s3 = new S3();
         $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name'], "{$_SESSION['user']['username']}.png");
         $profilePictureUrl = $s3->getObjectUrl('profile_pictures/', "{$_SESSION['user']['username']}.png");

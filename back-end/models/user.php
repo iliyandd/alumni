@@ -55,8 +55,6 @@ class User
         $detailInformation = false,
         $sensitiveInformation = false
     ) {
-        $s3 = new S3;
-
         $result = [
             'username' => $this->username,
             'email' => $this->email,
@@ -105,7 +103,7 @@ class User
         $userData = $statement->fetch(PDO::FETCH_OBJ);
 
         $profilePictureUrl = $userData->profile_picture_url;
-        $profilePictureHeaders = @get_headers($profilePictureUrl);
+        $profilePictureHeaders = $profilePictureUrl ? @get_headers($profilePictureUrl) : null;
 
         if (!$profilePictureHeaders || $profilePictureHeaders[0] == 'HTTP/1.1 404 Not Found') {
             $profilePictureUrl = '../../../alumni/img/anonymous_profile_picture.png';
