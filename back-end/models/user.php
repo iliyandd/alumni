@@ -6,11 +6,11 @@ class User
 {
     private $SAVE_QUERY =
     'INSERT INTO user (username, email, password, first_name, last_name, fn, speciality, in_alumni)' .
-        ' VALUES (:username, :email, :password, :firstName, :lastName, :fn, :speciality, :inAlumni, :profilePictureUrl)';
+        ' VALUES (:username, :email, :password, :firstName, :lastName, :fn, :speciality, :inAlumni)';
 
     private $CHECK_QUERY = 'SELECT id FROM user WHERE username = :username or email = :email or fn = :fn';
 
-    private static $UPDATE_PROFILE_PICTURE_QUERY = 'UPDATE user set profile_picture_url = :profilePictureUrl where id = :id';
+    private static $UPDATE_PROFILE_PICTURE_QUERY = 'UPDATE user set profile_picture_url = :profilePictureUrl where username = :username';
 
     private static $GET_BY_USERNAME_QUERY = 'SELECT * FROM user WHERE username = :username';
     private $id;
@@ -110,6 +110,8 @@ class User
         } elseif ($profilePictureHeaders[0] == 'HTTP/1.1 403 Forbidden') {
             $s3 = new S3();
             $profilePictureUrl = $s3->getObjectUrl('profile_pictures/', "{$username}.png");
+
+            User::updateUserProfilePicture($username, $profilePictureUrl, $connection);
         }
 
         return $profilePictureUrl;
@@ -119,7 +121,9 @@ class User
     {
         $statement = $connection->prepare($this->SAVE_QUERY);
         try {
-            $statement->execute($this->toJson(false, true));
+            $data = $this->toJson(false, true);
+            unset($data['profilePictureUrl']);
+            $statement->execute($data);
             return true;
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -164,12 +168,12 @@ class User
             : $statement->rowCount() > 0;
     }
 
-    public static function updateUserProfilePicture($id, $profilePictureUrl, $connection)
+    public static function updateUserProfilePicture($username, $profilePictureUrl, $connection)
     {
         $statement = $connection->prepare(User::$UPDATE_PROFILE_PICTURE_QUERY);
         try {
             $statement->execute(
-                ['id' => $id, 'profilePictureUrl' => $profilePictureUrl]
+                ['username' => $username, 'profilePictureUrl' => $profilePictureUrl]
             );
         } catch (PDOException $e) {
             echo $e->getMessage();

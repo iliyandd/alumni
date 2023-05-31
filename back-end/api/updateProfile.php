@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $s3->putObject('profile_pictures/', $_FILES['profile_picture']['tmp_name'], "{$_SESSION['user']['username']}.png");
         $profilePictureUrl = $s3->getObjectUrl('profile_pictures/', "{$_SESSION['user']['username']}.png");
 
-        User::updateUserProfilePicture($_SESSION['user']['id'], $profilePictureUrl, $connection);
+        User::updateUserProfilePicture($_SESSION['user']['username'], $profilePictureUrl, $connection);
     }
 
     header('Location: ../../front-end/profile/Profile.html');
