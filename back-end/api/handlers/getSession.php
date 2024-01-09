@@ -1,4 +1,6 @@
 <?php
+require_once '../../models/user.php';
+
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     session_start();
     if (isset($_SESSION['user'])) {
@@ -22,6 +24,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'message' => 'Грешка при вземането на сесия!',
             ]);
         }
+
+        $_SESSION['user']['profilePictureUrl'] = User::getProfilePictureUrl($_SESSION['user']['username'], $connection);
 
         http_response_code(200);
         echo json_encode($_SESSION['user']);

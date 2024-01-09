@@ -1,4 +1,7 @@
 <?php
+
+require_once 'C:\MyDownload\htdocs\alumni\back-end\aws\s3.php';
+
 class User
 {
     private $SAVE_QUERY =
@@ -6,6 +9,8 @@ class User
         ' VALUES (:username, :email, :password, :firstName, :lastName, :fn, :speciality, :inAlumni)';
 
     private $CHECK_QUERY = 'SELECT id FROM user WHERE username = :username or email = :email or fn = :fn';
+
+    private static $UPDATE_PROFILE_PICTURE_QUERY = 'UPDATE user set profile_picture_url = :profilePictureUrl where username = :username';
 
     private static $GET_BY_USERNAME_QUERY = 'SELECT * FROM user WHERE username = :username';
     private $id;
@@ -17,6 +22,7 @@ class User
     private $fn;
     private $speciality;
     private $inAlumni;
+    private $profilePictureUrl;
     private $dateCreated;
 
     public function __construct(
@@ -29,6 +35,7 @@ class User
         $speciality,
         $inAlumni,
         $id = null,
+        $profilePictureUrl = null,
         $dateCreated = null
     ) {
         $this->id = $id;
@@ -40,6 +47,7 @@ class User
         $this->fn = $fn;
         $this->speciality = $speciality;
         $this->inAlumni = $inAlumni;
+        $this->profilePictureUrl = $profilePictureUrl;
         $this->dateCreated = $dateCreated;
     }
 
@@ -55,6 +63,7 @@ class User
             'fn' => $this->fn,
             'speciality' => $this->speciality,
             'inAlumni' => $this->inAlumni,
+            'profilePictureUrl' => $this->profilePictureUrl,
         ];
         if ($detailInformation) {
             $result['id'] = $this->id;
@@ -87,11 +96,34 @@ class User
         return $this->fn;
     }
 
+    public static function getProfilePictureUrl($username, $connection)
+    {
+        $statement = $connection->prepare(User::$GET_BY_USERNAME_QUERY);
+        $statement->execute(['username' => $username]);
+        $userData = $statement->fetch(PDO::FETCH_OBJ);
+
+        $profilePictureUrl = $userData->profile_picture_url;
+        $profilePictureHeaders = $profilePictureUrl ? @get_headers($profilePictureUrl) : null;
+
+        if (!$profilePictureHeaders || $profilePictureHeaders[0] == 'HTTP/1.1 404 Not Found') {
+            $profilePictureUrl = '../../../alumni/img/anonymous_profile_picture.png';
+        } elseif ($profilePictureHeaders[0] == 'HTTP/1.1 403 Forbidden') {
+            $s3 = new S3();
+            $profilePictureUrl = $s3->getObjectUrl('profile_pictures/', "{$username}.png");
+
+            User::updateUserProfilePicture($username, $profilePictureUrl, $connection);
+        }
+
+        return $profilePictureUrl;
+    }
+
     public function save($connection)
     {
         $statement = $connection->prepare($this->SAVE_QUERY);
         try {
-            $statement->execute($this->toJson(false, true));
+            $data = $this->toJson(false, true);
+            unset($data['profilePictureUrl']);
+            $statement->execute($data);
             return true;
         } catch (PDOException $e) {
             echo $e->getMessage();
@@ -134,5 +166,17 @@ class User
         return $hasId
             ? $statement->rowCount() > 0 && $statement->fetch(PDO::FETCH_OBJ)->id != $this->getId()
             : $statement->rowCount() > 0;
+    }
+
+    public static function updateUserProfilePicture($username, $profilePictureUrl, $connection)
+    {
+        $statement = $connection->prepare(User::$UPDATE_PROFILE_PICTURE_QUERY);
+        try {
+            $statement->execute(
+                ['username' => $username, 'profilePictureUrl' => $profilePictureUrl]
+            );
+        } catch (PDOException $e) {
+            echo $e->getMessage();
+        }
     }
 }
